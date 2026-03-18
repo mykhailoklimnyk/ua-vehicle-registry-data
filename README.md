@@ -36,7 +36,7 @@ The source dataset on data.gov.ua spans **2013–2026** and totals roughly **~50
 - **Inconsistent brand/model naming** — the same vehicle brand or model spelled dozens of different ways
 - **Placeholder values instead of nulls** — `"невизначено"`, `"Не визначено"`, literal `"NULL"` text, empty strings used interchangeably
 - **Mixed numeric formats** — weight, capacity and other numeric fields contain dots, commas, slash-separated ranges (`1500/2000`), embedded units (`1500 кг`), and other non-numeric artifacts
-- **Orphan KOATUU codes** — 100+ region codes not found in any publicly available KOATUU dictionary, requiring manual reconciliation
+- **Orphan KOATUU codes** — 100+ region codes not found in any publicly available KOATUU dictionary, requiring manual reconciliation (see [ua-administrative-codes](https://github.com/mykhailoklimnyk/ua-administrative-codes) for the most complete KOATUU dictionary)
 
 This project resolves all of the above and delivers clean, typed, analysis-ready snapshots.
 
