@@ -1,0 +1,41 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "Dataset",
+  "name": "UA Vehicle Registry — Data Quality Edition",
+  "description": "A normalized and data-quality enhanced derivative of the Ukrainian public-sector open dataset 'Відомості про транспортні засоби та їх власників', designed for reproducible analytical use.",
+  "identifier": "https://doi.org/10.5281/zenodo.19099441",
+  "version": "0.1.0",
+  "dateCreated": "2026-02-26",
+  "datePublished": "2026-02-26",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "codeRepository": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data",
+  "issueTracker": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/issues",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Klimnyk",
+      "url": "https://github.com/mykhailoklimnyk",
+      "@id": "https://orcid.org/0009-0005-5463-6981"
+    }
+  ],
+  "keywords": [
+    "open-data",
+    "ukraine",
+    "vehicle-registry",
+    "data-quality",
+    "parquet",
+    "normalization"
+  ],
+  "isPartOf": [],
+  "hasPart": [],
+  "funder": [],
+  "relatedLink": [
+    "https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0"
+  ],
+  "programmingLanguage": [],
+  "operatingSystem": [],
+  "softwareRequirements": [],
+  "referencePublication": [],
+  "contIntegration": [],
+  "developmentStatus": "active"
+}

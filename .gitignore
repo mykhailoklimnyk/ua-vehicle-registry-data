@@ -1,0 +1,30 @@
+# IDE / editor
+.vscode/
+*.swp
+*.swo
+.idea/
+copilot-instructions.md
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Data files — snapshots published via GitHub Releases, not stored in Git
+snapshots/
+*.parquet
+*.csv
+*.zip
+
+# Internal docs — not for public repository
+docs/PUBLISHING.md
+docs/plan.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db

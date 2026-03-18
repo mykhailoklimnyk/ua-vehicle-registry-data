@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/blob/main/schema/schema.json",
+  "title": "UA Vehicle Registry — Normalized Record",
+  "description": "Schema for a single record in the normalized UA vehicle registry Parquet snapshots (v1.0).",
+  "type": "object",
+  "properties": {
+    "person_type": {
+      "type": ["string", "null"],
+      "description": "Type of owner. P = natural person (фізична особа), J = legal entity (юридична особа).",
+      "enum": ["P", "J", null]
+    },
+    "reg_addr_koatuu": {
+      "type": ["string", "null"],
+      "description": "KOATUU code of the owner's registered address. Stored as string to preserve leading zeros.",
+      "pattern": "^[0-9]{10}$"
+    },
+    "oper_code": {
+      "type": ["integer", "null"],
+      "description": "Numeric code of the registration operation."
+    },
+    "oper_name": {
+      "type": ["string", "null"],
+      "description": "Human-readable name of the registration operation."
+    },
+    "d_reg": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Date of the registration operation (ISO 8601: YYYY-MM-DD)."
+    },
+    "dep_code": {
+      "type": ["integer", "null"],
+      "description": "Numeric code of the service center (department)."
+    },
+    "dep_name": {
+      "type": ["string", "null"],
+      "description": "Name of the service center (department)."
+    },
+    "brand": {
+      "type": ["string", "null"],
+      "description": "Vehicle brand / manufacturer."
+    },
+    "model": {
+      "type": ["string", "null"],
+      "description": "Vehicle model."
+    },
+    "vin": {
+      "type": ["string", "null"],
+      "description": "Vehicle Identification Number. Null for records predating July 2021 (VIN column absent in source).",
+      "pattern": "^[A-HJ-NPR-Z0-9]{17}$"
+    },
+    "make_year": {
+      "type": ["integer", "null"],
+      "description": "Year of manufacture (four-digit year).",
+      "minimum": 1900,
+      "maximum": 2100
+    },
+    "color": {
+      "type": ["string", "null"],
+      "description": "Vehicle body color."
+    },
+    "kind": {
+      "type": ["string", "null"],
+      "description": "Vehicle kind (e.g., ЛЕГКОВИЙ, ВАНТАЖНИЙ, АВТОБУС)."
+    },
+    "body": {
+      "type": ["string", "null"],
+      "description": "Body type (e.g., СЕДАН, ХЕТЧБЕК, УНІВЕРСАЛ)."
+    },
+    "purpose": {
+      "type": ["string", "null"],
+      "description": "Vehicle purpose (e.g., ЗАГАЛЬНИЙ, ПАСАЖИРСЬКИЙ)."
+    },
+    "fuel": {
+      "type": ["string", "null"],
+      "description": "Fuel type (e.g., БЕНЗИН, ДИЗЕЛЬНЕ ПАЛИВО, ЕЛЕКТРО)."
+    },
+    "capacity": {
+      "type": ["number", "null"],
+      "description": "Engine displacement in cm³.",
+      "minimum": 0
+    },
+    "own_weight": {
+      "type": ["integer", "null"],
+      "description": "Vehicle curb weight in kg.",
+      "minimum": 0
+    },
+    "total_weight": {
+      "type": ["integer", "null"],
+      "description": "Vehicle gross weight in kg.",
+      "minimum": 0
+    },
+    "n_reg_new": {
+      "type": ["string", "null"],
+      "description": "Vehicle registration plate number (new format)."
+    },
+    "record_ids": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Array of source record IDs aggregated into this row."
+    },
+    "payload": {
+      "type": ["integer", "null"],
+      "description": "Vehicle payload capacity in kg.",
+      "minimum": 0
+    },
+    "secondary_fuel": {
+      "type": ["string", "null"],
+      "description": "Secondary fuel type (e.g., ГАЗ for LPG/CNG vehicles)."
+    },
+    "n_reg_latin": {
+      "type": ["string", "null"],
+      "description": "Vehicle registration plate transliterated to Latin characters."
+    },
+    "is_valid_plate": {
+      "type": ["boolean", "null"],
+      "description": "Whether the registration plate passes format validation."
+    },
+    "raw_vin": {
+      "type": ["string", "null"],
+      "description": "Original VIN as received from source. Null for records before 2021."
+    },
+    "is_valid_vin": {
+      "type": ["boolean", "null"],
+      "description": "Whether the VIN passes checksum and format validation. Null for records before 2021."
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

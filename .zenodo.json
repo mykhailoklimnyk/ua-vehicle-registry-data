@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "title": "UA Vehicle Registry — Data Quality Edition",
+    "upload_type": "dataset",
+    "description": "A normalized and data-quality enhanced derivative of the Ukrainian public-sector open dataset 'Відомості про транспортні засоби та їх власників' (Information on vehicles and their owners), published by the Ministry of Internal Affairs of Ukraine on data.gov.ua. This edition provides encoding normalization, schema stabilization, deduplication, and Apache Parquet snapshots for reproducible analytical use.",
+    "creators": [
+      {
+        "name": "Klimnyk",
+        "affiliation": "",
+        "orcid": "0009-0005-5463-6981"
+      }
+    ],
+    "license": "CC-BY-4.0",
+    "keywords": [
+      "open-data",
+      "ukraine",
+      "vehicle-registry",
+      "data-quality",
+      "parquet",
+      "normalization",
+      "data.gov.ua"
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0",
+        "relation": "isDerivedFrom",
+        "resource_type": "dataset",
+        "scheme": "url"
+      },
+      {
+        "identifier": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data",
+        "relation": "isSupplementTo",
+        "resource_type": "software",
+        "scheme": "url"
+      }
+    ],
+    "subjects": [
+      {
+        "term": "Open data",
+        "identifier": "https://id.loc.gov/authorities/subjects/sh2012003087",
+        "scheme": "url"
+      }
+    ],
+    "language": "eng",
+    "access_right": "open",
+    "communities": [
+      {
+        "identifier": "open-data"
+      }
+    ],
+    "notes": "Source data published under CC BY 4.0 by the Ministry of Internal Affairs of Ukraine on data.gov.ua. Dataset ID: 06779371-308f-42d7-895e-5a39833375f0.",
+    "doi": "10.5281/zenodo.19099441"
+  }
+}
