@@ -81,13 +81,72 @@
 ## Завантаження
 
 <!-- DOWNLOADS:START -->
-*Релізів ще немає. Посилання для завантаження з'являться тут автоматично після першого запуску пайплайну.*
+### Yearly
+
+| Year | Release | CSV | Parquet | DQ Report |
+|------|---------|-----|---------|-----------|
+| 2013 | [v2013.full](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.full) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/yearly/2013/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/yearly/2013/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/yearly/2013/report.md) |
+
+### Monthly
+
+<details><summary>2013</summary>
+
+| Month | Release | CSV | Parquet | DQ Report |
+|-------|---------|-----|---------|-----------|
+| 2013-01 | [v2013.01](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.01) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/01/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/01/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/01/report.md) |
+| 2013-02 | [v2013.02](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.02) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/02/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/02/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/02/report.md) |
+| 2013-03 | [v2013.03](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.03) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/03/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/03/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/03/report.md) |
+| 2013-04 | [v2013.04](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.04) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/04/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/04/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/04/report.md) |
+| 2013-05 | [v2013.05](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.05) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/05/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/05/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/05/report.md) |
+| 2013-06 | [v2013.06](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.06) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/06/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/06/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/06/report.md) |
+| 2013-07 | [v2013.07](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.07) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/07/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/07/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/07/report.md) |
+| 2013-08 | [v2013.08](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.08) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/08/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/08/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/08/report.md) |
+| 2013-09 | [v2013.09](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.09) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/09/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/09/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/09/report.md) |
+| 2013-10 | [v2013.10](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.10) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/10/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/10/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/10/report.md) |
+| 2013-11 | [v2013.11](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.11) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/11/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/11/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/11/report.md) |
+| 2013-12 | [v2013.12](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2013.12) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2013/12/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2013/12/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2013/12/report.md) |
+
+</details>
+
+
+### MinIO (Mirror)
+
+All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_opendata](https://m1.automoto.ua/opendata-hub/mvs_opendata)
+
+*Last updated: 2026-03-18 21:04 UTC*
 <!-- DOWNLOADS:END -->
 
 ## Звіти Data Quality
 
 <!-- DQ_REPORTS:START -->
-*Звітів ще немає. Посилання з'являться тут автоматично після першого запуску пайплайну.*
+### Yearly
+
+| Year | DQ Report |
+|------|-----------|
+| 2013 | [report_2013.md](dq/yearly/report_2013.md) |
+
+### Monthly
+
+<details><summary>2013</summary>
+
+| Month | DQ Report |
+|-------|-----------|
+| 2013-01 | [report_2013_01.md](dq/monthly/2013/report_2013_01.md) |
+| 2013-02 | [report_2013_02.md](dq/monthly/2013/report_2013_02.md) |
+| 2013-03 | [report_2013_03.md](dq/monthly/2013/report_2013_03.md) |
+| 2013-04 | [report_2013_04.md](dq/monthly/2013/report_2013_04.md) |
+| 2013-05 | [report_2013_05.md](dq/monthly/2013/report_2013_05.md) |
+| 2013-06 | [report_2013_06.md](dq/monthly/2013/report_2013_06.md) |
+| 2013-07 | [report_2013_07.md](dq/monthly/2013/report_2013_07.md) |
+| 2013-08 | [report_2013_08.md](dq/monthly/2013/report_2013_08.md) |
+| 2013-09 | [report_2013_09.md](dq/monthly/2013/report_2013_09.md) |
+| 2013-10 | [report_2013_10.md](dq/monthly/2013/report_2013_10.md) |
+| 2013-11 | [report_2013_11.md](dq/monthly/2013/report_2013_11.md) |
+| 2013-12 | [report_2013_12.md](dq/monthly/2013/report_2013_12.md) |
+
+</details>
+
+*Last updated: 2026-03-18 21:04 UTC*
 <!-- DQ_REPORTS:END -->
 
 ## Структура репозиторію
