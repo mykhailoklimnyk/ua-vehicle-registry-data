@@ -6,8 +6,8 @@ This document describes the canonical schema used in all normalized Parquet snap
 
 | Property | Value |
 |---|---|
-| **Schema version** | 1.1 |
-| **Effective from** | v1.1.0 |
+| **Schema version** | 1.0 |
+| **Effective from** | v0.1.0 |
 
 Schema version follows the project release versioning. Changes to column names, types, or semantics require a major version increment.
 

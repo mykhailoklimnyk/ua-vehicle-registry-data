@@ -4,7 +4,7 @@
 
 # Реєстр ТЗ України — Data Quality Edition
 
-[![Sponsored by automoto.ai](https://img.shields.io/badge/Sponsored%20by-automoto.ai-blue)](https://automoto.ai)
+[![Sponsored by automoto.ai](https://img.shields.io/badge/Sponsored%20by-automoto.ai-blue)](https://automoto.ai/open-data/ua-vehicle-registry)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightblue.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19099461.svg)](https://doi.org/10.5281/zenodo.19099461)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0005--5463--6981-green.svg)](https://orcid.org/0009-0005-5463-6981)
@@ -41,8 +41,6 @@
 Цей проєкт вирішує всі ці проблеми і видає чисті, типізовані, готові до аналізу знімки.
 
 Дивіться [docs/DATA_QUALITY_REPORT.uk.md](docs/DATA_QUALITY_REPORT.uk.md) для повного каталогу знайдених проблем.
-
-Дивіться [ROADMAP.uk.md](ROADMAP.uk.md) для плану розвитку проєкту.
 
 ## Що робить цей проєкт
 
@@ -172,8 +170,6 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
     schema.uk.md                # Документація схеми (UK)
     schema.json                 # Визначення схеми (машинозчитуване)
 CITATION.cff                    # Метадані цитування (кнопка Cite в GitHub)
-ROADMAP.md                      # Дорожня карта (EN)
-ROADMAP.uk.md                   # Дорожня карта (UK)
 LICENSE                         # Текст ліцензії CC BY 4.0
 README.md                       # Англійська версія
 README.uk.md                    # Цей файл (українська)

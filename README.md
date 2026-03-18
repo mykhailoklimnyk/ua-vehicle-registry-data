@@ -4,7 +4,7 @@
 
 # UA Vehicle Registry — Data Quality Edition
 
-[![Sponsored by automoto.ai](https://img.shields.io/badge/Sponsored%20by-automoto.ai-blue)](https://automoto.ai)
+[![Sponsored by automoto.ai](https://img.shields.io/badge/Sponsored%20by-automoto.ai-blue)](https://automoto.ai/open-data/ua-vehicle-registry)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightblue.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19099461.svg)](https://doi.org/10.5281/zenodo.19099461)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0005--5463--6981-green.svg)](https://orcid.org/0009-0005-5463-6981)
@@ -41,8 +41,6 @@ The source dataset on data.gov.ua spans **2013–2026** and totals roughly **~50
 This project resolves all of the above and delivers clean, typed, analysis-ready snapshots.
 
 See [docs/DATA_QUALITY_REPORT.md](docs/DATA_QUALITY_REPORT.md) for the full catalog of issues found.
-
-See [ROADMAP.md](ROADMAP.md) for the project development plan.
 
 ## What This Project Does
 
@@ -172,8 +170,6 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
     schema.uk.md                # Human-readable schema documentation (UK)
     schema.json                 # Machine-readable schema definition
 CITATION.cff                    # Citation metadata (GitHub cite button)
-ROADMAP.md                      # Project roadmap (EN)
-ROADMAP.uk.md                   # Project roadmap (UK)
 LICENSE                         # CC BY 4.0 license text
 README.md                       # This file (English)
 README.uk.md                    # Ukrainian version
