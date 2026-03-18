@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "UA Vehicle Registry — Data Quality Edition"
+message: >-
+  If you use this dataset, please cite it using the metadata
+  from this file.
+type: dataset
+authors:
+  - name: Klimnyk
+    alias: Klimnyk
+    orcid: "https://orcid.org/0009-0005-5463-6981"
+doi: "10.5281/zenodo.19099461"
+url: "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data"
+repository-code: "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data"
+license: CC-BY-4.0
+version: "0.1.0"
+date-released: "2026-02-26"
+abstract: >-
+  A normalized and data-quality enhanced derivative of the
+  Ukrainian public-sector open dataset "Відомості про
+  транспортні засоби та їх власників", published by the
+  Ministry of Internal Affairs of Ukraine on data.gov.ua.
+  This edition provides encoding normalization, schema
+  stabilization, deduplication, and Parquet snapshots for
+  reproducible analytical use.
+keywords:
+  - open-data
+  - ukraine
+  - vehicle-registry
+  - data-quality
+  - parquet
+  - normalization
+references:
+  - type: data
+    title: "Відомості про транспортні засоби та їх власників"
+    authors:
+      - name: "Міністерство внутрішніх справ України"
+    url: "https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0"
+    license: CC-BY-4.0
+    date-released: "2018-08-22"

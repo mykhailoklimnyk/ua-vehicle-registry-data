@@ -1,0 +1,183 @@
+{
+  "name": "ua-vehicle-registry-data-quality",
+  "title": "UA Vehicle Registry — Data Quality Edition",
+  "description": "A normalized and data-quality enhanced derivative of the Ukrainian public-sector open dataset 'Відомості про транспортні засоби та їх власників', designed for reproducible analytical use.",
+  "homepage": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data",
+  "version": "0.1.0",
+  "created": "2026-02-26",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0 International"
+    }
+  ],
+  "contributors": [
+    {
+      "title": "Klimnyk",
+      "role": "maintainer"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Відомості про транспортні засоби та їх власників",
+      "path": "https://data.gov.ua/dataset/0ffd8b75-0628-48cc-952a-9302f9799ec0"
+    }
+  ],
+  "keywords": [
+    "open-data",
+    "ukraine",
+    "vehicle-registry",
+    "data-quality",
+    "parquet",
+    "normalization"
+  ],
+  "resources": [
+    {
+      "name": "snapshot",
+      "path": "snapshots/*.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "name": "person_type",
+            "type": "string",
+            "description": "Type of owner: P = natural person, J = legal entity"
+          },
+          {
+            "name": "reg_addr_koatuu",
+            "type": "string",
+            "description": "KOATUU code of the owner's registered address"
+          },
+          {
+            "name": "oper_code",
+            "type": "integer",
+            "description": "Numeric code of the registration operation"
+          },
+          {
+            "name": "oper_name",
+            "type": "string",
+            "description": "Human-readable name of the registration operation"
+          },
+          {
+            "name": "d_reg",
+            "type": "date",
+            "description": "Date of the registration operation"
+          },
+          {
+            "name": "dep_code",
+            "type": "integer",
+            "description": "Numeric code of the service center"
+          },
+          {
+            "name": "dep_name",
+            "type": "string",
+            "description": "Name of the service center"
+          },
+          {
+            "name": "brand",
+            "type": "string",
+            "description": "Vehicle brand / manufacturer"
+          },
+          {
+            "name": "model",
+            "type": "string",
+            "description": "Vehicle model"
+          },
+          {
+            "name": "vin",
+            "type": "string",
+            "description": "Vehicle Identification Number. Null for records predating July 2021."
+          },
+          {
+            "name": "make_year",
+            "type": "integer",
+            "description": "Year of manufacture"
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Vehicle body color"
+          },
+          {
+            "name": "kind",
+            "type": "string",
+            "description": "Vehicle kind (e.g., passenger, cargo, bus)"
+          },
+          {
+            "name": "body",
+            "type": "string",
+            "description": "Body type (e.g., sedan, hatchback)"
+          },
+          {
+            "name": "purpose",
+            "type": "string",
+            "description": "Vehicle purpose"
+          },
+          {
+            "name": "fuel",
+            "type": "string",
+            "description": "Fuel type"
+          },
+          {
+            "name": "capacity",
+            "type": "number",
+            "description": "Engine displacement in cm³"
+          },
+          {
+            "name": "own_weight",
+            "type": "integer",
+            "description": "Vehicle curb weight in kg"
+          },
+          {
+            "name": "total_weight",
+            "type": "integer",
+            "description": "Vehicle gross weight in kg"
+          },
+          {
+            "name": "n_reg_new",
+            "type": "string",
+            "description": "Vehicle registration plate number (new format)"
+          },
+          {
+            "name": "record_ids",
+            "type": "array",
+            "description": "Array of source record IDs aggregated into this row"
+          },
+          {
+            "name": "payload",
+            "type": "integer",
+            "description": "Vehicle payload capacity in kg"
+          },
+          {
+            "name": "secondary_fuel",
+            "type": "string",
+            "description": "Secondary fuel type (e.g., LPG/CNG)"
+          },
+          {
+            "name": "n_reg_latin",
+            "type": "string",
+            "description": "Registration plate transliterated to Latin characters"
+          },
+          {
+            "name": "is_valid_plate",
+            "type": "boolean",
+            "description": "Whether the registration plate passes format validation"
+          },
+          {
+            "name": "raw_vin",
+            "type": "string",
+            "description": "Original VIN from source. Null before 2021"
+          },
+          {
+            "name": "is_valid_vin",
+            "type": "boolean",
+            "description": "Whether the VIN passes validation. Null before 2021"
+          }
+        ]
+      }
+    }
+  ]
+}
