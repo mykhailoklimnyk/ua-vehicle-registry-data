@@ -6,7 +6,7 @@
 
 [![Sponsored by automoto.ai](https://img.shields.io/badge/Sponsored%20by-automoto.ai-blue)](https://automoto.ai/open-data/ua-vehicle-registry)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightblue.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19099461.svg)](https://doi.org/10.5281/zenodo.19099461)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19099441.svg)](https://doi.org/10.5281/zenodo.19099441)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0005--5463--6981-green.svg)](https://orcid.org/0009-0005-5463-6981)
 [![Wikidata](https://img.shields.io/badge/Wikidata-Q138717134-006699.svg)](https://www.wikidata.org/wiki/Q138717134)
 
