@@ -70,7 +70,7 @@
 | Канал | Опис |
 |---|---|
 | [GitHub Releases](../../releases) | Parquet та CSV знімки, прикріплені до релізів |
-| [automoto.ai](https://automoto.ai) | Data hub з інтерактивним доступом та розширеними даними |
+| [automoto.ai](https://automoto.ai/open-data/ua-vehicle-registry) | Data hub з інтерактивним доступом та розширеними даними |
 
 - Схема стабільна в межах мажорної версії.
 - Файли даних **не** зберігаються в історії Git.

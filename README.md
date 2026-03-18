@@ -70,7 +70,7 @@ Snapshots are published monthly in Apache Parquet (recommended) and CSV formats.
 | Channel | Description |
 |---|---|
 | [GitHub Releases](../../releases) | Parquet and CSV snapshots attached to releases |
-| [automoto.ai](https://automoto.ai) | Data hub with interactive access and extended data |
+| [automoto.ai](https://automoto.ai/open-data/ua-vehicle-registry) | Data hub with interactive access and extended data |
 
 - Schema is stable across monthly snapshots within a major version.
 - Data files are **not** stored in Git history.
