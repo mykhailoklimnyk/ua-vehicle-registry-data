@@ -360,7 +360,7 @@
 
 All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_opendata](https://m1.automoto.ua/opendata-hub/mvs_opendata)
 
-*Last updated: 2026-03-19 16:14 UTC*
+*Last updated: 2026-03-19 18:21 UTC*
 <!-- DOWNLOADS:END -->
 
 ## Звіти Data Quality
@@ -642,7 +642,7 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 
 </details>
 
-*Last updated: 2026-03-19 16:14 UTC*
+*Last updated: 2026-03-19 18:21 UTC*
 <!-- DQ_REPORTS:END -->
 
 ## Структура репозиторію
