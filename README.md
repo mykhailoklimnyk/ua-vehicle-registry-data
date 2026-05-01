@@ -361,7 +361,7 @@ Snapshots are published monthly in Apache Parquet (recommended) and CSV formats.
 
 All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_opendata](https://m1.automoto.ua/opendata-hub/mvs_opendata)
 
-*Last updated: 2026-05-01 15:28 UTC*
+*Last updated: 2026-05-01 20:02 UTC*
 <!-- DOWNLOADS:END -->
 
 ## Data Quality Reports
@@ -644,7 +644,7 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 
 </details>
 
-*Last updated: 2026-05-01 15:28 UTC*
+*Last updated: 2026-05-01 20:02 UTC*
 <!-- DQ_REPORTS:END -->
 
 ## Repository Structure
