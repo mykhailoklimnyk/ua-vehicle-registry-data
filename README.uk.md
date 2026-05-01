@@ -106,6 +106,7 @@
 | 2026-01 | [v2026.01](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.01) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/01/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/01/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/01/report.md) |
 | 2026-02 | [v2026.02](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.02) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/02/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/02/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/02/report.md) |
 | 2026-03 | [v2026.03](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.03) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/03/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/03/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/03/report.md) |
+| 2026-04 | [v2026.04](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.04) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/04/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/04/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/04/report.md) |
 
 </details>
 
@@ -361,7 +362,7 @@
 
 All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_opendata](https://m1.automoto.ua/opendata-hub/mvs_opendata)
 
-*Last updated: 2026-05-01 20:02 UTC*
+*Last updated: 2026-05-01 21:52 UTC*
 <!-- DOWNLOADS:END -->
 
 ## Звіти Data Quality
@@ -394,6 +395,7 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 | 2026-01 | [report_2026_01.md](dq/monthly/2026/report_2026_01.md) |
 | 2026-02 | [report_2026_02.md](dq/monthly/2026/report_2026_02.md) |
 | 2026-03 | [report_2026_03.md](dq/monthly/2026/report_2026_03.md) |
+| 2026-04 | [report_2026_04.md](dq/monthly/2026/report_2026_04.md) |
 
 </details>
 
@@ -644,7 +646,7 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 
 </details>
 
-*Last updated: 2026-05-01 20:02 UTC*
+*Last updated: 2026-05-01 21:52 UTC*
 <!-- DQ_REPORTS:END -->
 
 ## Структура репозиторію
