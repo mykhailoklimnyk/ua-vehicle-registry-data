@@ -106,6 +106,10 @@ Snapshots are published monthly in Apache Parquet (recommended) and CSV formats.
 | 2026-02 | [v2026.02](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.02) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/02/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/02/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/02/report.md) |
 | 2026-03 | [v2026.03](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.03) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/03/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/03/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/03/report.md) |
 | 2026-04 | [v2026.04](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.04) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/04/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/04/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/04/report.md) |
+| 2026-05 | [v2026.05](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.05) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/05/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/05/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/05/report.md) |
+| 2026-06 | [v2026.06](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.06) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/06/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/06/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/06/report.md) |
+| 2026-07 | [v2026.07](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.07) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/07/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/07/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/07/report.md) |
+| 2026-08 | [v2026.08](https://github.com/mykhailoklimnyk/ua-vehicle-registry-data-quality/releases/tag/v2026.08) | [CSV](https://m1.automoto.ua/opendata-hub/mvs_opendata/csv/monthly/2026/08/data.csv) | [Parquet](https://m1.automoto.ua/opendata-hub/mvs_opendata/parquet/monthly/2026/08/data.parquet) | [DQ](https://m1.automoto.ua/opendata-hub/mvs_opendata/dq/monthly/2026/08/report.md) |
 
 </details>
 
@@ -361,7 +365,7 @@ Snapshots are published monthly in Apache Parquet (recommended) and CSV formats.
 
 All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_opendata](https://m1.automoto.ua/opendata-hub/mvs_opendata)
 
-*Last updated: 2026-05-01 21:52 UTC*
+*Last updated: 2026-09-16 13:52 UTC*
 <!-- DOWNLOADS:END -->
 
 ## Data Quality Reports
@@ -395,6 +399,10 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 | 2026-02 | [report_2026_02.md](dq/monthly/2026/report_2026_02.md) |
 | 2026-03 | [report_2026_03.md](dq/monthly/2026/report_2026_03.md) |
 | 2026-04 | [report_2026_04.md](dq/monthly/2026/report_2026_04.md) |
+| 2026-05 | [report_2026_05.md](dq/monthly/2026/report_2026_05.md) |
+| 2026-06 | [report_2026_06.md](dq/monthly/2026/report_2026_06.md) |
+| 2026-07 | [report_2026_07.md](dq/monthly/2026/report_2026_07.md) |
+| 2026-08 | [report_2026_08.md](dq/monthly/2026/report_2026_08.md) |
 
 </details>
 
@@ -645,7 +653,7 @@ All files are also available at: [https://m1.automoto.ua/opendata-hub/mvs_openda
 
 </details>
 
-*Last updated: 2026-05-01 21:52 UTC*
+*Last updated: 2026-09-16 13:52 UTC*
 <!-- DQ_REPORTS:END -->
 
 ## Repository Structure
