@@ -1,7 +1,7 @@
 {
   "name": "ua-vehicle-registry-data-quality",
   "title": "UA Vehicle Registry — Data Quality Edition",
-  "description": "A normalized and data-quality enhanced derivative of the Ukrainian public-sector open dataset 'Відомості про транспортні засоби та їх власників', designed for reproducible analytical use.",
+  "description": "A normalized and data-quality enhanced derivative of the Ukrainian public-sector open dataset 'Відомості про транспортні засоби та їх власників', designed for reproducible analytical use. Schema 2.0 (from the 2026-04 snapshot): record_ids became record_id, power_kwt was added, and reg_addr_koatuu, n_reg_new, n_reg_latin and is_valid_plate are omitted from snapshots from 2026-05 onward because the source registry stopped publishing them.",
   "homepage": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data",
   "version": "0.1.0",
   "created": "2026-02-26",
@@ -42,6 +42,11 @@
       "schema": {
         "fields": [
           {
+            "name": "record_id",
+            "type": "string",
+            "description": "Source record ID. Named record_ids (array) in snapshots up to 2026-03."
+          },
+          {
             "name": "person_type",
             "type": "string",
             "description": "Type of owner: P = natural person, J = legal entity"
@@ -49,7 +54,7 @@
           {
             "name": "reg_addr_koatuu",
             "type": "string",
-            "description": "KOATUU code of the owner's registered address"
+            "description": "KOATUU code of the owner's registered address. Absent from snapshots from 2026-05 onward."
           },
           {
             "name": "oper_code",
@@ -68,8 +73,8 @@
           },
           {
             "name": "dep_code",
-            "type": "integer",
-            "description": "Numeric code of the service center"
+            "type": "string",
+            "description": "Code of the service center. String to preserve leading zeros; recovered from the service center name from 2026-05."
           },
           {
             "name": "dep_name",
@@ -124,7 +129,12 @@
           {
             "name": "capacity",
             "type": "number",
-            "description": "Engine displacement in cm³"
+            "description": "Engine displacement in cm3"
+          },
+          {
+            "name": "power_kwt",
+            "type": "integer",
+            "description": "Engine power in kW. Added in schema 2.0; in the source from 2026-05, carried onto earlier registrations by VIN."
           },
           {
             "name": "own_weight",
@@ -139,12 +149,7 @@
           {
             "name": "n_reg_new",
             "type": "string",
-            "description": "Vehicle registration plate number (new format)"
-          },
-          {
-            "name": "record_ids",
-            "type": "array",
-            "description": "Array of source record IDs aggregated into this row"
+            "description": "Vehicle registration plate number (new format). Absent from snapshots from 2026-05 onward."
           },
           {
             "name": "payload",
@@ -159,12 +164,12 @@
           {
             "name": "n_reg_latin",
             "type": "string",
-            "description": "Registration plate transliterated to Latin characters"
+            "description": "Registration plate transliterated to Latin characters. Absent from snapshots from 2026-05 onward."
           },
           {
             "name": "is_valid_plate",
             "type": "boolean",
-            "description": "Whether the registration plate passes format validation"
+            "description": "Whether the registration plate passes format validation. Absent from snapshots from 2026-05 onward."
           },
           {
             "name": "raw_vin",
@@ -176,6 +181,9 @@
             "type": "boolean",
             "description": "Whether the VIN passes validation. Null before 2021"
           }
+        ],
+        "missingValues": [
+          ""
         ]
       }
     }

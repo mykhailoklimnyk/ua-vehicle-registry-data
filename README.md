@@ -75,6 +75,20 @@ Snapshots are published monthly in Apache Parquet (recommended) and CSV formats.
 - Data files are **not** stored in Git history.
 - Each release includes a **Data Quality report** (DQ) with validation results.
 
+### Schema 2.0 — breaking change from the 2026-04 snapshot
+
+The source registry changed what it publishes, so the derived dataset changes with it. See [`schema/schema.md`](schema/schema.md) for the full definition.
+
+| From | Change |
+|---|---|
+| 2026-04 | `record_ids` (array) is replaced by `record_id` (single source record ID) |
+| 2026-04 | `power_kwt` added — engine power in kW |
+| 2026-05 | `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin`, `is_valid_plate` are **no longer present**: the registry stopped publishing the plate and the owner's KOATUU code |
+
+The four dropped columns are omitted from the file rather than written as all-null, because an empty column does not let you tell "no data" from "no value". Snapshots up to 2026-04 keep them, so **releases published earlier are unchanged**.
+
+A snapshot has 27 columns up to 2026-03, 28 for 2026-04, and 24 from 2026-05. Read columns by name and treat each as optional.
+
 ## Downloads
 
 <!-- DOWNLOADS:START -->

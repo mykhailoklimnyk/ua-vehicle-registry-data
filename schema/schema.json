@@ -2,9 +2,18 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/blob/main/schema/schema.json",
   "title": "UA Vehicle Registry — Normalized Record",
-  "description": "Schema for a single record in the normalized UA vehicle registry Parquet snapshots (v1.0).",
+  "description": "Schema for a single record in the normalized UA vehicle registry Parquet snapshots (v2.0). From the 2026-04 snapshot rows are no longer aggregated, so the identifier is the single-valued `record_id` instead of the `record_ids` array. From the 2026-05 snapshot the source registry stopped publishing the registration plate and the owner's KOATUU code, so `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin` and `is_valid_plate` are omitted from those files entirely rather than emitted as all-null columns. Consumers should read columns by name and treat any of them as optional.",
   "type": "object",
   "properties": {
+    "record_id": {
+      "type": ["string", "null"],
+      "description": "Source record ID. Present from the 2026-04 snapshot onward, where each row is a single source record."
+    },
+    "record_ids": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Array of source record IDs aggregated into this row. Present only in snapshots up to 2026-03, which were built with GROUP BY + ARRAY_AGG. Superseded by `record_id`."
+    },
     "person_type": {
       "type": ["string", "null"],
       "description": "Type of owner. P = natural person (фізична особа), J = legal entity (юридична особа).",
@@ -12,7 +21,7 @@
     },
     "reg_addr_koatuu": {
       "type": ["string", "null"],
-      "description": "KOATUU code of the owner's registered address. Stored as string to preserve leading zeros.",
+      "description": "KOATUU code of the owner's registered address. Stored as string to preserve leading zeros. Absent from snapshots from 2026-05 onward: the source registry no longer publishes it.",
       "pattern": "^[0-9]{10}$"
     },
     "oper_code": {
@@ -29,8 +38,8 @@
       "description": "Date of the registration operation (ISO 8601: YYYY-MM-DD)."
     },
     "dep_code": {
-      "type": ["integer", "null"],
-      "description": "Numeric code of the service center (department)."
+      "type": ["string", "null"],
+      "description": "Code of the service center (department). String, not integer, to preserve leading zeros. From 2026-05 the source no longer supplies it directly; it is recovered from the service center name, and is null where no match exists."
     },
     "dep_name": {
       "type": ["string", "null"],
@@ -80,6 +89,11 @@
       "description": "Engine displacement in cm³.",
       "minimum": 0
     },
+    "power_kwt": {
+      "type": ["integer", "null"],
+      "description": "Engine power in kW. Present from the 2026-04 snapshot onward. The source registry supplies it from 2026-05; for earlier registrations it is carried over from a later record of the same VIN, and is null where no such record exists.",
+      "minimum": 0
+    },
     "own_weight": {
       "type": ["integer", "null"],
       "description": "Vehicle curb weight in kg.",
@@ -92,12 +106,7 @@
     },
     "n_reg_new": {
       "type": ["string", "null"],
-      "description": "Vehicle registration plate number (new format)."
-    },
-    "record_ids": {
-      "type": ["array", "null"],
-      "items": { "type": "string" },
-      "description": "Array of source record IDs aggregated into this row."
+      "description": "Vehicle registration plate number (new format). Absent from snapshots from 2026-05 onward: the source registry no longer publishes it."
     },
     "payload": {
       "type": ["integer", "null"],
@@ -110,11 +119,11 @@
     },
     "n_reg_latin": {
       "type": ["string", "null"],
-      "description": "Vehicle registration plate transliterated to Latin characters."
+      "description": "Vehicle registration plate transliterated to Latin characters. Absent from snapshots from 2026-05 onward: derived from `n_reg_new`, which the source no longer publishes."
     },
     "is_valid_plate": {
       "type": ["boolean", "null"],
-      "description": "Whether the registration plate passes format validation."
+      "description": "Whether the registration plate passes format validation. Absent from snapshots from 2026-05 onward: with no plate in the source, validity is unknown rather than false."
     },
     "raw_vin": {
       "type": ["string", "null"],
