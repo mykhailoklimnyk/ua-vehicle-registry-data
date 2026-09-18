@@ -111,6 +111,10 @@ A snapshot has 27 columns up to 2026-03, 28 for 2026-04, and 24 from 2026-05. Re
 
 ## Downloads
 
+The **CSV**, **Parquet** and **DQ** links in the tables below always serve the current version of each period.
+
+The **Release** link opens the GitHub release, whose attached files are a frozen snapshot of what was published on that date. Where a period has since been reprocessed, the attachments still hold the older extract while the links above hold the corrected one. Releases are deliberately left untouched so that a DOI keeps pointing at the exact bytes it was minted for. **For analysis, prefer the CSV/Parquet links; cite the release when you need a fixed, citable artefact.**
+
 <!-- DOWNLOADS:START -->
 ### Yearly
 
