@@ -11,6 +11,26 @@
 
 A normalized and data-quality enhanced derivative of a Ukrainian public-sector open dataset, designed for reproducible analytical use.
 
+> [!IMPORTANT]
+> ### The source stopped publishing plates and owner KOATUU codes
+>
+> From the **2026-05** snapshot onward, the Ministry of Internal Affairs no longer includes the registration plate or the owner's KOATUU code in the published file. This is a change at the source — nothing was removed by this project.
+>
+> Four columns are therefore **absent from files for 2026-05 and later**: `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin`, `is_valid_plate`.
+>
+> They are omitted rather than written as empty columns, so that an all-null column never gets mistaken for "no value". **Files up to 2026-04 are unchanged**, and releases published before the switch still contain plates and KOATUU codes.
+>
+> **What this means in practice**
+> - A vehicle can no longer be followed by plate across periods after 2026-04. `vin` remains available and is the identifier to use.
+> - Geographic analysis by the owner's registered address is not possible for the new periods. The service center (`dep_name`, `dep_code`) is the only location signal that remains.
+> - Plate-format validation cannot be performed, so `is_valid_plate` is not reported — absent rather than `false`, because validity is unknown, not failed.
+>
+> A new column, `power_kwt` (engine power in kW), appears in the same change and is also carried onto earlier registrations of the same VIN.
+>
+> **If you compare periods, note the volume shift.** Monthly record counts for 2026-05…08 are about **17% below** the same months of 2025, while 2026-01…04 ran about **8% above**. We do not attribute this to any single cause — treat cross-period comparisons around the switch with care.
+>
+> Full details: [`schema/schema.md`](schema/schema.md).
+
 ## Source Dataset
 
 | Field | Value |
