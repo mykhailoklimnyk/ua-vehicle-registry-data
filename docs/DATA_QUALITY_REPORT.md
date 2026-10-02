@@ -10,7 +10,7 @@ This document catalogs the data quality problems found in the source dataset and
 | **Time span** | 2013 – 2026-08-30 |
 | **Release** | 0.2.0, rebuilt 2026-10-02 |
 | **Source files used** | exactly one MIA revision per period (list and SHA-256 in [SOURCES.md](SOURCES.md)) |
-| **Published rows** | 24,853,336 |
+| **Published rows** | 24,853,334 |
 | **Row definition** | one row = one unique source event; exact duplicate rows of the source collapse into one (`record_id` = MD5 of the trimmed raw fields) |
 
 The dataset is built only from the MIA files; no internal enrichment is used. The column `record_ids` no longer exists. The current MIA 2026 file ends on 2026-08-30 (there are no 2026-08-31 rows in the source).
@@ -193,12 +193,12 @@ Reports are generated automatically by the pipeline and attached to the release 
 
 ## Verification per period
 
-For every period the published rows were matched against the source file: the MD5 of each source row was computed independently from the published one. In every period there are **0 missing, 0 extra and 0 duplicate `record_id`**.
+For every period the published rows were matched against the source file: the MD5 of each source row was computed independently from the published one. In every period there are **0 missing, 0 extra and 0 duplicate `record_id`**¹.
 
 | Period | Source rows | Exact duplicates collapsed | Published |
 |---|---:|---:|---:|
 | 2013 | 1,935,496 | 1,155 | 1,934,341 |
-| 2014 | 1,439,551 | 1,231 | 1,438,320 |
+| 2014 | 1,439,551 | 1,231 + 2¹ | 1,438,318 |
 | 2015 | 1,296,256 | 1,279 | 1,294,977 |
 | 2016 | 1,432,560 | 1,192 | 1,431,368 |
 | 2017 | 1,417,655 | 1,246 | 1,416,409 |
@@ -212,9 +212,11 @@ For every period the published rows were matched against the source file: the MD
 | 2025 | 2,229,904 | 31,785 | 2,198,119 |
 | 2026-01-01 … 2026-04-29 (MVS revision 508698) | 693,929 | 1,492 | 692,437 |
 | 2026-04-30 … 2026-08-30 (current MVS 2026 file) | 650,466 | 612 | 649,854 |
-| **Total** | | | **24,853,336** |
+| **Total** | | | **24,853,334** |
 
-Published rows per period = source rows − exact duplicates collapsed. Total published: 24,853,336.
+Published rows per period = source rows − exact duplicates collapsed. Total published: 24,853,334.
+
+¹ 2014 also has two events that the MIA file lists twice, once with the plate in Cyrillic and once with Latin letters (`21АМ8500` / `21АM8500`, `22АІ5133` / `22AI5133`). Each pair is collapsed into one row, keeping the Cyrillic plate.
 
 ## Fixes in 0.2.0 (GitHub issues #1–#7)
 
