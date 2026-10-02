@@ -1,100 +1,109 @@
 # Schema Documentation
 
-This document describes the canonical schema used in all normalized Parquet snapshots.
+This document describes the canonical schema of all snapshots (Parquet and CSV).
 
 ## Schema Version
 
 | Property | Value |
 |---|---|
-| **Schema version** | 2.0 |
-| **Effective from** | 2026-04 snapshot |
+| **Schema version** | 3.0 |
+| **Effective from** | Re-release of 2026-10 — applies to every snapshot 2013–2026 |
 
-Schema version follows the project release versioning. Changes to column names, types, or semantics require a major version increment.
+Changes to column names, types, or semantics require a major version increment.
 
-### What changed in 2.0
+### What changed in 3.0
 
-Three changes land in this version, all driven by the source registry.
+All snapshots were rebuilt from the MIA files listed in [docs/SOURCES.md](../docs/SOURCES.md),
+one source revision per period, with one pipeline. Earlier releases mixed three build
+generations; 3.0 replaces them.
 
-1. **`record_ids` → `record_id`.** Rows are no longer aggregated with `GROUP BY` + `ARRAY_AGG`, so the identifier is a single source record ID rather than an array. Effective from the 2026-04 snapshot.
-2. **Plate and owner KOATUU removed at source.** From 2026-05 the registry stopped publishing the registration plate and the owner's KOATUU code. The affected columns — `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin`, `is_valid_plate` — are **omitted from those files** rather than written as all-null columns, because an empty column does not let a consumer tell "no data" from "no value". Snapshots up to 2026-04 keep them, so older releases are unaffected.
-3. **`power_kwt` added.** Engine power in kW, published by the source from 2026-05 and carried onto earlier registrations of the same VIN.
+1. **`record_id` everywhere.** The `record_ids` array (2013 – 2026-03) is gone. Each row is one
+   distinct source row; `record_id` is the MD5 of its source fields and is unique.
+2. **No registration plates for 2013–2020.** `n_reg_new`, `n_reg_latin`, `is_valid_plate` are
+   published for 2021-01 … 2026-04 only. From 2026-05 the source has no plates.
+3. **`power_kwt` is a number** with the source precision (`154.6`), not an integer. Values written
+   with a decimal comma were previously lost.
+4. **`d_reg` is a Parquet `DATE`**, not a string. Booleans in CSV are `true`/`false`.
+5. **Empty columns are omitted.** A column the source does not have for a period is left out of
+   that file: VIN columns and `power_kwt` before 2021, plates outside 2021-01 … 2026-04,
+   `reg_addr_koatuu` from 2026-05.
 
-`dep_code` was documented as `INTEGER` in `schema.json` but has always been written as a string; the schema now says so.
-
-**Reading snapshots:** address columns by name and treat every column as optional. A snapshot has 27 columns up to 2026-03, 28 for 2026-04, and 24 from 2026-05.
+Column order is fixed; a file contains the listed columns minus those omitted by rule 5.
 
 ## Column Definitions
 
 | # | Column | Type | Nullable | Description |
 |---|---|---|---|---|
-| 1 | `record_id` | `STRING` | No | Source record ID. Named `record_ids` (`ARRAY[STRING]`) in snapshots up to 2026-03. |
-| 2 | `person_type` | `STRING` | No | Type of owner: `P` — natural person, `J` — legal entity |
-| 3 | `reg_addr_koatuu` | `STRING(10)` | Yes | KOATUU code of the owner's registered address. Preserved as string to retain leading zeros. **Absent from 2026-05 onward.** |
-| 4 | `oper_code` | `INTEGER` | Yes | Numeric code of the registration operation |
-| 5 | `oper_name` | `STRING` | Yes | Human-readable name of the registration operation |
-| 6 | `d_reg` | `DATE` | No | Date of the registration operation (YYYY-MM-DD) |
-| 7 | `dep_code` | `STRING` | Yes | Service center code. From 2026-05 recovered from the service center name; null where no match exists. |
-| 8 | `dep_name` | `STRING` | Yes | Name of the service center |
-| 9 | `brand` | `STRING` | Yes | Vehicle brand (Latin) |
-| 10 | `model` | `STRING` | Yes | Vehicle model (Latin) |
-| 11 | `vin` | `STRING(17)` | Yes | Vehicle Identification Number (Latin). `null` for records predating 2021-01-01. |
-| 12 | `make_year` | `INTEGER` | No | Year of manufacture (1900–current+1) |
-| 13 | `color` | `STRING` | No | Vehicle body color |
-| 14 | `kind` | `STRING` | No | Vehicle kind (e.g., passenger, cargo) |
-| 15 | `body` | `STRING` | Yes | Body type (e.g., sedan, hatchback) |
+| 1 | `record_id` | `STRING` | No | MD5 of the source fields (operation name excluded). Unique. |
+| 2 | `person_type` | `STRING` | No | `P` — natural person, `J` — legal entity |
+| 3 | `reg_addr_koatuu` | `STRING(10)` | Yes | KOATUU of the owner's address, leading zeros kept. Not from 2026-05. |
+| 4 | `oper_code` | `INTEGER` | Yes | Operation code. Group by this, not by `oper_name`. |
+| 5 | `oper_name` | `STRING` | Yes | Operation name from the source, Latin `I` inside Cyrillic words replaced by `І` |
+| 6 | `d_reg` | `DATE` | No | Registration date |
+| 7 | `dep_code` | `STRING` | Yes | Service center code. From 2026-05 recovered from the name. |
+| 8 | `dep_name` | `STRING` | Yes | Service center name |
+| 9 | `brand` | `STRING` | Yes | Brand, Latin; catalogue spelling where the brand is in the catalogue |
+| 10 | `model` | `STRING` | Yes | Model, Latin; catalogue model family where one exists |
+| 11 | `vin` | `STRING` | Yes | Normalized VIN (see notes). From 2021. |
+| 12 | `make_year` | `INTEGER` | Yes | Year of manufacture as in the source |
+| 13 | `color` | `STRING` | Yes | Body color |
+| 14 | `kind` | `STRING` | Yes | Vehicle kind |
+| 15 | `body` | `STRING` | Yes | Body type group |
 | 16 | `purpose` | `STRING` | Yes | Vehicle purpose |
-| 17 | `fuel` | `STRING` | Yes | Primary fuel type |
-| 18 | `capacity` | `INTEGER` | Yes | Engine displacement in cm³ |
-| 19 | `power_kwt` | `INTEGER` | Yes | Engine power in kW. **Added in 2.0** (2026-04 snapshot onward). |
-| 20 | `own_weight` | `INTEGER` | Yes | Vehicle curb weight in kg |
-| 21 | `total_weight` | `INTEGER` | Yes | Vehicle gross weight in kg |
-| 22 | `n_reg_new` | `STRING` | Yes | Registration plate number. **Absent from 2026-05 onward.** |
-| 23 | `payload` | `INTEGER` | Yes | Payload capacity in kg |
-| 24 | `secondary_fuel` | `STRING` | Yes | Secondary fuel type (LPG/CNG) |
-| 25 | `n_reg_latin` | `STRING` | Yes | Registration plate transliterated to Latin. **Absent from 2026-05 onward.** |
-| 26 | `is_valid_plate` | `BOOLEAN` | Yes | Whether the registration plate passes format validation. **Absent from 2026-05 onward** — with no plate in the source, validity is unknown, not false. |
-| 27 | `raw_vin` | `STRING` | Yes | Original VIN from source. `null` for records predating 2021-01-01. |
-| 28 | `is_valid_vin` | `BOOLEAN` | Yes | Whether the VIN passes validation. `null` for records predating 2021-01-01. |
+| 17 | `fuel` | `STRING` | Yes | Primary fuel |
+| 18 | `capacity` | `INTEGER` | Yes | Engine displacement, cm³, as in the source |
+| 19 | `power_kwt` | `DOUBLE` | Yes | Engine power, kW, source precision. From 2021 (see notes). |
+| 20 | `own_weight` | `INTEGER` | Yes | Curb weight, kg, as in the source |
+| 21 | `total_weight` | `INTEGER` | Yes | Gross weight, kg, as in the source |
+| 22 | `n_reg_new` | `STRING` | Yes | Registration plate. 2021-01 … 2026-04 only. |
+| 23 | `payload` | `INTEGER` | Yes | `total_weight − own_weight`; null if `own_weight > total_weight` |
+| 24 | `secondary_fuel` | `STRING` | Yes | Secondary fuel (`Газ`, `Електро`) |
+| 25 | `n_reg_latin` | `STRING` | Yes | `n_reg_new` in Latin script. Same periods. |
+| 26 | `is_valid_plate` | `BOOLEAN` | Yes | Plate matches a standard civilian format. Same periods. |
+| 27 | `raw_vin` | `STRING` | Yes | VIN exactly as in the source. From 2021. |
+| 28 | `is_valid_vin` | `BOOLEAN` | Yes | VIN format check. From 2021. |
 
 ## Notes
 
-- All string fields are trimmed of leading/trailing whitespace.
-- `person_type` values are normalized to uppercase single characters: `P` or `J`.
-- `reg_addr_koatuu` is intentionally stored as `STRING` to preserve leading zeros in KOATUU codes.
-- `d_reg` is parsed from various source formats (`DD.MM.YYYY`, `YYYY-MM-DD`) into a standard `DATE` type.
-- `null` is used for all missing or indeterminate values. No sentinel values (e.g., `0`, `-1`, `невизначено`) are preserved.
-- Column order is fixed and must be consistent across all snapshots within the same schema version.
-- `vin` and `raw_vin` are `null` for all records from source files predating 2021-01-01 (the VIN column was added to the source dataset at that point). `is_valid_vin` is also `null` for these records.
-- `brand` and `model` are normalized to Latin characters.
-- `record_id` holds one source record ID per row. In snapshots up to 2026-03 the column was `record_ids`, an array of IDs aggregated into a single row via `GROUP BY` + `ARRAY_AGG`.
-- `power_kwt` comes from the source only from 2026-05. For earlier registrations it is carried over from a later record of the same VIN, and is null where the vehicle has no such record — about 3.2% of all rows carry a value.
-- `n_reg_latin` is a transliteration of `n_reg_new` to Latin characters.
-- `is_valid_plate` indicates whether `n_reg_new` passes Ukrainian plate format validation.
+- **Duplicates.** Rows identical in every source column are published once. Two rows that differ
+  in any source field are two rows, even if they describe what looks like the same event.
+- **`vin`**: upper case; spaces, `/`, `-`, quotes removed; Cyrillic look-alikes replaced by Latin
+  (`А В Е К М Н О Р С Т Х І` → `A B E K M H O P C T X I`, `З` → `3`). Other Cyrillic letters are
+  **kept**, so a value with them is visibly not a valid VIN. `vin` matches
+  `^[A-HJ-NPR-Z0-9]{17}$` exactly where `is_valid_vin` is true.
+- **`is_valid_vin`** checks the format only (17 characters, no `I O Q`, not starting with `0`).
+  The check digit is not verified: most VINs outside North America do not use it.
+- **`is_valid_plate`** is true for `AA0000AA` (2004+), `00000AA` (1995–2004) and online-registration
+  codes. Older and special formats (`16ВР3029`, `АЕАА4125`, diplomatic `CD001158`) are false — in
+  every year alike.
+- **`power_kwt`**: the source publishes it from 2026-05. It is carried to other registrations of
+  the same VIN in the source, so it can appear on 2021 – 2026-04 rows; there are no VINs before 2021.
+- **`capacity`, `own_weight`, `total_weight`, `make_year`** are not corrected. Electric vehicles
+  keep the source capacity (often empty). `make_year = 1900` is a source placeholder.
+- **Placeholders** kept as values: `color`/`kind` `Невизначений`, `body` `Невизначений`. They are
+  the source's own value, not a missing one.
+- **`color`**: the 2025+ source spelling `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` is published as `Оранжевий`,
+  matching 2013–2024.
+- **`oper_name`**: several codes have more than one wording in the source (e.g. 308, 100, 540).
 
 ## Source Column Mapping
 
-| Canonical name | Known source variants |
+| Canonical name | Source column |
 |---|---|
-| `person_type` | `PERSON`, `person` |
-| `reg_addr_koatuu` | `REG_ADDR_KOATUU`, `reg_addr_koatuu` |
-| `oper_code` | `OPER_CODE`, `oper_code` |
-| `oper_name` | `OPER_NAME`, `oper_name` |
-| `d_reg` | `D_REG`, `d_reg` |
-| `dep_code` | `DEP_CODE`, `dep_code` |
-| `dep_name` | `DEP`, `dep`, `DEP_NAME` |
-| `brand` | `BRAND`, `brand` |
-| `model` | `MODEL`, `model` |
-| `vin` | `VIN`, `vin` |
-| `make_year` | `MAKE_YEAR`, `make_year`, `VYP`, `rik_vypusku` |
-| `color` | `COLOR`, `color` |
-| `kind` | `KIND`, `kind` |
-| `body` | `BODY`, `body` |
-| `purpose` | `PURPOSE`, `purpose` |
-| `fuel` | `FUEL`, `fuel` |
-| `capacity` | `CAPACITY`, `capacity`, `OB_DVYG` |
-| `own_weight` | `OWN_WEIGHT`, `own_weight`, `VLASNA_VAGA` |
-| `total_weight` | `TOTAL_WEIGHT`, `total_weight`, `POVNA_VAGA` |
-| `n_reg_new` | `N_REG_NEW`, `n_reg_new` (not present from 2026-05) |
+| `person_type` | `PERSON` |
+| `reg_addr_koatuu` | `REG_ADDR_KOATUU` (to 2026-04) |
+| `oper_code`, `oper_name` | `OPER_CODE`, `OPER_NAME`; from 2026-05 one column `CD.OPER_CODE\|\|'-'\|\|CD.OPERAS` |
+| `d_reg` | `D_REG` (`YYYY-MM-DD`, `DD.MM.YYYY` or `DD.MM.YY`) |
+| `dep_code` | `DEP_CODE` (to 2026-04) |
+| `dep_name` | `DEP` |
+| `brand`, `model` | `BRAND`, `MODEL` (2013–2018: `BRAND` holds brand and model) |
+| `vin`, `raw_vin` | `VIN` (from 2021) |
+| `make_year` | `MAKE_YEAR` |
+| `color`, `kind`, `body`, `purpose`, `fuel` | `COLOR`, `KIND`, `BODY`, `PURPOSE`, `FUEL` |
+| `capacity` | `CAPACITY` |
 | `power_kwt` | `POWER_KWT` (from 2026-05) |
+| `own_weight`, `total_weight` | `OWN_WEIGHT`, `TOTAL_WEIGHT` |
+| `n_reg_new` | `N_REG_NEW` (to 2026-04) |
 
-> **Note:** `record_id`, `payload`, `secondary_fuel`, `n_reg_latin`, `is_valid_plate`, `raw_vin`, and `is_valid_vin` are computed fields with no direct source column mapping.
+Column names are matched case-insensitively. `record_id`, `payload`, `secondary_fuel`,
+`n_reg_latin`, `is_valid_plate` and `is_valid_vin` are computed.

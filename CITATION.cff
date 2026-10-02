@@ -12,7 +12,7 @@ doi: "10.5281/zenodo.19099441"
 url: "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data"
 repository-code: "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data"
 license: CC-BY-4.0
-version: "0.1.0"
+version: "0.2.0"
 date-released: "2026-02-26"
 abstract: >-
   A normalized and data-quality enhanced derivative of the

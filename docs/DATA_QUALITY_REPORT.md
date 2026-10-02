@@ -6,31 +6,18 @@ This document catalogs the data quality problems found in the source dataset and
 
 | Property | Value |
 |---|---|
-| **Source** | [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0) |
-| **Time span** | 2013–2026 |
-| **Raw data volume** | ~46.8 GB (CSV) |
-| **Number of source CSV files** | 146 (143 valid, 3 excluded) |
-| **Yearly archives** | 14 |
-| **Unique records (after dedup)** | ~29 million |
-| **Records after aggregation** | ~24 million |
-| **Aggregation method** | `GROUP BY d_reg, oper_code, n_reg_cleaned, brand_lat` |
-| **Merged Parquet size** | ~907 MB |
-| **Compression ratio (CSV → Parquet)** | ~10.8% |
+| **Source** | [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0), dataset `06779371-308f-42d7-895e-5a39833375f0` |
+| **Time span** | 2013 – 2026-08-30 |
+| **Release** | 0.2.0, rebuilt 2026-10-02 |
+| **Source files used** | exactly one MIA revision per period (list and SHA-256 in [SOURCES.md](SOURCES.md)) |
+| **Published rows** | 24,853,336 |
+| **Row definition** | one row = one unique source event; exact duplicate rows of the source collapse into one (`record_id` = MD5 of the trimmed raw fields) |
 
-### Excluded Files
-
-Three source files were excluded during validation:
-
-| Reason | Count | Details |
-|---|---|---|
-| Extra column (`BIRTHDAY`) | 1 | One 2019 file shipped with an additional personal data column |
-| Corrupt / wrong field count | 2 | Two 2022 files with ~107 K corrupt rows and ~930 wrong-field rows |
-
-> **Note:** Six early-2021 files (Jan–Jun) that predate the VIN column addition are **no longer excluded**. The `vin` column is added with `null` values for schema consistency.
+The dataset is built only from the MIA files; no internal enrichment is used. The column `record_ids` no longer exists. The current MIA 2026 file ends on 2026-08-30 (there are no 2026-08-31 rows in the source).
 
 ## Catalog of Source Data Problems
 
-All yearly source files (2013–2026) were analyzed. The following issues were found systematically across the dataset. Each issue includes a description, affected years where observed, and the remediation applied.
+All source files (2013–2026) were analyzed. The following issues were found systematically across the dataset. Each issue includes a description, affected years where observed, and the remediation applied.
 
 ### 1. Broken Character Encoding (Mojibake)
 
@@ -69,11 +56,11 @@ All yearly source files (2013–2026) were analyzed. The following issues were f
 
 ### 4. Duplicate Records
 
-**Problem:** Exact duplicate rows (identical across all columns) appear both within a single yearly file and across overlapping year boundaries. The dataset is published as cumulative snapshots (January–March, January–April, etc.), so later snapshots fully contain earlier ones — producing massive cross-file duplication.
+**Problem:** Exact duplicate rows (identical in every source field) appear within a single source file. In addition, the source was historically published as cumulative and partial files, and the same registration event can appear in several revisions with different spellings (plate in Cyrillic vs. Latin, a body type filled in later, a reworded operation name).
 
-**Affected:** All years from 2018 onward. In extreme cases, over 85% of raw rows across a year's files are duplicates. For example, 2023 raw data totals ~32.3 M rows but contains only ~3.7 M unique records (88.4% duplication). 2013–2017 have one file per year with no cross-file duplication.
+**Affected:** All years. Exact duplicates inside the chosen source files are listed per period in [Verification per period](#verification-per-period); 2025 has the most (31,785).
 
-**Remediation:** Full-row hash deduplication (SHA-256). Only exact byte-identical duplicates are removed — no fuzzy matching.
+**Remediation:** Each period is taken from exactly one source revision, so revisions are never mixed. Rows identical in every source field collapse into one (`record_id` = MD5 of the trimmed raw fields). No fuzzy matching.
 
 ---
 
@@ -105,7 +92,7 @@ All yearly source files (2013–2026) were analyzed. The following issues were f
 
 **Affected:** All years.
 
-**Remediation:** Normalization mapping to canonical brand/model names. Curated manually with automated matching assistance.
+**Remediation:** Normalization mapping to canonical brand/model names: a single Latin spelling per brand and model families (see issue #5 below). Each dictionary has exactly one entry per source value.
 
 ---
 
@@ -178,16 +165,16 @@ This prevents direct numeric parsing and produces widespread type coercion failu
 
 ## Known Anomalies in Export Data
 
-These anomalies are present in the raw MIA source data and are inherited in the export as-is. They are not errors introduced by the pipeline.
+These anomalies are present in the raw MIA source data and are inherited in the export as-is (values are not corrected). They are not errors introduced by the pipeline.
 
 | # | Anomaly | Condition | Description |
 |---|---|---|---|
 | 1 | Negative weight | `own_weight < 0` or `total_weight < 0` | Data-entry errors in the source |
 | 2 | Vehicles from the "future" | `make_year > 2027` | Data-entry errors (year of manufacture beyond plausible range) |
 | 3 | Weight > 200 tonnes | `own_weight > 200000` | Data-entry errors (weight in grams instead of kg, or similar) |
-| 4 | Curb weight > gross weight | `own_weight > total_weight` | Logically impossible: curb weight cannot exceed gross weight |
+| 4 | Curb weight > gross weight | `own_weight > total_weight` | Logically impossible: curb weight cannot exceed gross weight (`payload` is NULL in this case) |
 | 5 | Engine capacity > 50 L | `capacity > 50000` | Data-entry errors (capacity in mL instead of cm³, or similar) |
-| 6 | Duplicate source records | — | Consolidated via `GROUP BY` + `ARRAY_AGG` into `record_ids` |
+| 6 | Duplicate source records | — | Rows identical in every source field are published once; the column `record_ids` no longer exists |
 
 > **Note:** These anomalies are flagged in the per-release Data Quality report (Markdown file included in each GitHub Release).
 
@@ -204,22 +191,51 @@ Reports are generated automatically by the pipeline and attached to the release 
 
 ---
 
-## Snapshot Metrics
+## Verification per period
 
-| Metric | Description |
-|---|---|
-| **Total records (source)** | Total rows in the source CSV before cleaning |
-| **Total records (output)** | Total rows in the Parquet snapshot after cleaning and aggregation |
-| **Exact duplicates removed** | Count of bit-identical duplicate rows dropped |
-| **Empty rows removed** | Count of rows where all columns were null/empty |
-| **Encoding issues fixed** | Count of files requiring re-encoding |
-| **Date parse failures** | Count of `d_reg` values that could not be parsed |
-| **Column name variants mapped** | Number of non-canonical column names remapped |
-| **Leading zeros restored** | Count of KOATUU codes with leading zeros restored |
+For every period the published rows were matched against the source file: the MD5 of each source row was computed independently from the published one. In every period there are **0 missing, 0 extra and 0 duplicate `record_id`**.
 
-> _Snapshot metrics will be populated upon first release._
+| Period | Source rows | Exact duplicates collapsed | Published |
+|---|---:|---:|---:|
+| 2013 | 1,935,496 | 1,155 | 1,934,341 |
+| 2014 | 1,439,551 | 1,231 | 1,438,320 |
+| 2015 | 1,296,256 | 1,279 | 1,294,977 |
+| 2016 | 1,432,560 | 1,192 | 1,431,368 |
+| 2017 | 1,417,655 | 1,246 | 1,416,409 |
+| 2018 | 1,547,418 | 1,212 | 1,546,206 |
+| 2019 | 2,079,481 | 1,413 | 2,078,068 |
+| 2020 | 1,771,329 | 839 | 1,770,490 |
+| 2021 | 2,201,307 | 841 | 2,200,466 |
+| 2022 | 1,745,908 | 756 | 1,745,152 |
+| 2023 | 2,124,732 | 6,554 | 2,118,178 |
+| 2024 | 2,344,544 | 5,593 | 2,338,951 |
+| 2025 | 2,229,904 | 31,785 | 2,198,119 |
+| 2026-01-01 … 2026-04-29 (MVS revision 508698) | 693,929 | 1,492 | 692,437 |
+| 2026-04-30 … 2026-08-30 (current MVS 2026 file) | 650,466 | 612 | 649,854 |
+| **Total** | | | **24,853,336** |
 
----
+Published rows per period = source rows − exact duplicates collapsed. Total published: 24,853,336.
+
+## Fixes in 0.2.0 (GitHub issues #1–#7)
+
+All seven issues were reported by Qyperion.
+
+| Issue | Problem | Fix in 0.2.0 |
+|---|---|---|
+| #1 | The last day of every month was dropped from the monthly files (month end was computed as an exclusive `MonthEnd`). | A month is `[first day, first day of next month)`. |
+| #2 | More rows than in the source: the old build mixed rows of older MIA revisions and repeated the same event with different spellings. | One revision per period; exact duplicates collapsed. `v2025.full` has 2,198,119 rows = unique source events. |
+| #3 | `ЕЛЕКТРО АБО ДИЗЕЛЬНЕ ПАЛИВО` was mapped to a petrol hybrid. | Fuel `Дизель`, secondary fuel `Електро`. |
+| #4 | `POWER_KWT` with a decimal comma (e.g. `154,6`) was lost. | Parsed; `power_kwt` is a float with decimals. Present in the source from 2026-05; carried to other records of the same valid VIN from the source. |
+| #5 | The same brand or model was spelled in several ways. | Dictionaries fixed: a single Latin spelling per brand, model families. |
+| #6 | Values differed from the source. | `own_weight`, `total_weight`, `capacity`, `make_year` as in the source (no "corrections"); `payload` is NULL when `total_weight < own_weight`; `is_valid_vin` is true only for valid 17-character VINs; a VIN keeps non-lookalike Cyrillic letters instead of deleting them; an empty plate gives `is_valid_plate` NULL. |
+| #7 | 2019 had about 204,000 rows that are not in the current MIA file (an older revision). | Removed. Colour `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` unified to `Оранжевий`; Latin `I` inside Cyrillic words of `oper_name` replaced by Cyrillic `І`; body types mapped consistently. |
+
+## Publication Rules
+
+* Registration plates (`n_reg_new`, `n_reg_latin`, `is_valid_plate`) are published only for 2021-01…2026-04: not for 2013–2020 (by decision), and absent in the source from 2026-05.
+* `vin`, `raw_vin`, `is_valid_vin` only from 2021 — the source has no VIN before.
+* `reg_addr_koatuu` is absent in the source from 2026-05.
+* Columns that are entirely empty in a period are dropped from that period's file.
 
 ## Known Data Quality Issues in Source (Summary)
 
@@ -228,7 +244,7 @@ Reports are generated automatically by the pipeline and attached to the release 
 | 1 | Broken encoding (mojibake) | Critical | 2019 (CP1251), others UTF-8 |
 | 2 | Inconsistent column names / schema change | High | All; VIN added mid-2021 |
 | 3 | Delimiter inconsistency / Cyrillic extensions | Medium | 2018, 2019–2020, 2023 |
-| 4 | Duplicate records (cumulative snapshots) | High | 2018–2026 (up to 88%) |
+| 4 | Duplicate records (exact duplicates; overlapping revisions) | High | All; resolved in 0.2.0 |
 | 5 | Invalid/mixed data types | High | All |
 | 6 | Leading zeros stripped | High | Multiple |
 | 7 | Inconsistent brand/model names | High | All |

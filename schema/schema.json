@@ -2,17 +2,13 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/blob/main/schema/schema.json",
   "title": "UA Vehicle Registry — Normalized Record",
-  "description": "Schema for a single record in the normalized UA vehicle registry Parquet snapshots (v2.0). From the 2026-04 snapshot rows are no longer aggregated, so the identifier is the single-valued `record_id` instead of the `record_ids` array. From the 2026-05 snapshot the source registry stopped publishing the registration plate and the owner's KOATUU code, so `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin` and `is_valid_plate` are omitted from those files entirely rather than emitted as all-null columns. Consumers should read columns by name and treat any of them as optional.",
+  "description": "Schema for a single record in the normalized UA vehicle registry snapshots (v3.0). All snapshots 2013–2026 are built the same way: one revision of the MIA open registry per period (docs/SOURCES.md), one row per distinct source row, identified by `record_id`. A column for which the source has no value in a given period is omitted from that file rather than written as all-null: registration plates are not published for 2013–2020, VIN and engine power exist only from 2021, plates and owner KOATUU are not published by the source from 2026-05. Read columns by name and treat every column as optional.",
   "type": "object",
   "properties": {
     "record_id": {
-      "type": ["string", "null"],
-      "description": "Source record ID. Present from the 2026-04 snapshot onward, where each row is a single source record."
-    },
-    "record_ids": {
-      "type": ["array", "null"],
-      "items": { "type": "string" },
-      "description": "Array of source record IDs aggregated into this row. Present only in snapshots up to 2026-03, which were built with GROUP BY + ARRAY_AGG. Superseded by `record_id`."
+      "type": "string",
+      "description": "MD5 of the source fields of the row (operation name excluded: the source spells one operation in several ways). Unique across the dataset.",
+      "pattern": "^[0-9a-f]{32}$"
     },
     "person_type": {
       "type": ["string", "null"],
@@ -21,119 +17,114 @@
     },
     "reg_addr_koatuu": {
       "type": ["string", "null"],
-      "description": "KOATUU code of the owner's registered address. Stored as string to preserve leading zeros. Absent from snapshots from 2026-05 onward: the source registry no longer publishes it.",
+      "description": "KOATUU code of the owner's registered address, as a string to keep leading zeros. Not in snapshots from 2026-05: the source no longer publishes it.",
       "pattern": "^[0-9]{10}$"
     },
     "oper_code": {
       "type": ["integer", "null"],
-      "description": "Numeric code of the registration operation."
+      "description": "Numeric code of the registration operation. Identifies the operation; use it rather than oper_name for grouping."
     },
     "oper_name": {
       "type": ["string", "null"],
-      "description": "Human-readable name of the registration operation."
+      "description": "Operation name as in the source, with Latin I inside Cyrillic words replaced by Cyrillic І. The source uses more than one wording for some codes."
     },
     "d_reg": {
-      "type": ["string", "null"],
+      "type": "string",
       "format": "date",
-      "description": "Date of the registration operation (ISO 8601: YYYY-MM-DD)."
+      "description": "Date of the registration operation. Parquet type DATE; CSV text YYYY-MM-DD."
     },
     "dep_code": {
       "type": ["string", "null"],
-      "description": "Code of the service center (department). String, not integer, to preserve leading zeros. From 2026-05 the source no longer supplies it directly; it is recovered from the service center name, and is null where no match exists."
+      "description": "Service center code, as a string. From 2026-05 recovered from the service center name; null where no match exists."
     },
     "dep_name": {
       "type": ["string", "null"],
-      "description": "Name of the service center (department)."
+      "description": "Name of the service center."
     },
     "brand": {
       "type": ["string", "null"],
-      "description": "Vehicle brand / manufacturer."
+      "description": "Brand in Latin script. Brands present in the reference catalogue get the catalogue spelling (Volkswagen, Mercedes-Benz) regardless of the model; others keep the source spelling."
     },
     "model": {
       "type": ["string", "null"],
-      "description": "Vehicle model."
+      "description": "Model in Latin script, mapped to a catalogue model family where one exists (MEGANE SCENIC → Scenic); otherwise the source model."
     },
     "vin": {
       "type": ["string", "null"],
-      "description": "Vehicle Identification Number. Null for records predating July 2021 (VIN column absent in source).",
-      "pattern": "^[A-HJ-NPR-Z0-9]{17}$"
+      "description": "Normalized VIN: upper case, separators removed, Cyrillic look-alike letters replaced by Latin (А→A, В→B, З→3 …). Other Cyrillic letters are kept. Matches the 17-character VIN pattern only where is_valid_vin is true. The source has VINs from 2021."
     },
     "make_year": {
       "type": ["integer", "null"],
-      "description": "Year of manufacture (four-digit year).",
-      "minimum": 1900,
-      "maximum": 2100
+      "description": "Year of manufacture as in the source. 1900 is a source placeholder for an unknown year."
     },
     "color": {
       "type": ["string", "null"],
-      "description": "Vehicle body color."
+      "description": "Body color. The 2025+ source spelling 'ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)' is published as 'Оранжевий', as in 2013–2024."
     },
     "kind": {
       "type": ["string", "null"],
-      "description": "Vehicle kind (e.g., ЛЕГКОВИЙ, ВАНТАЖНИЙ, АВТОБУС)."
+      "description": "Vehicle kind (e.g. Легковий, Вантажний, Автобус)."
     },
     "body": {
       "type": ["string", "null"],
-      "description": "Body type (e.g., СЕДАН, ХЕТЧБЕК, УНІВЕРСАЛ)."
+      "description": "Body type group (e.g. Седан, Хетчбек, Сідловий Тягач); null where the source value is empty or unknown to the mapping."
     },
     "purpose": {
       "type": ["string", "null"],
-      "description": "Vehicle purpose (e.g., ЗАГАЛЬНИЙ, ПАСАЖИРСЬКИЙ)."
+      "description": "Vehicle purpose (e.g. Загальний, Спеціалізований)."
     },
     "fuel": {
       "type": ["string", "null"],
-      "description": "Fuel type (e.g., БЕНЗИН, ДИЗЕЛЬНЕ ПАЛИВО, ЕЛЕКТРО)."
+      "description": "Primary fuel (Бензин, Дизель, Газ, Електро, Водень). For hybrids the combustion fuel; the electric part is in secondary_fuel."
     },
     "capacity": {
-      "type": ["number", "null"],
-      "description": "Engine displacement in cm³.",
+      "type": ["integer", "null"],
+      "description": "Engine displacement in cm³ exactly as in the source, including electric vehicles (where the source often has an empty value or battery capacity).",
       "minimum": 0
     },
     "power_kwt": {
-      "type": ["integer", "null"],
-      "description": "Engine power in kW. Present from the 2026-04 snapshot onward. The source registry supplies it from 2026-05; for earlier registrations it is carried over from a later record of the same VIN, and is null where no such record exists.",
+      "type": ["number", "null"],
+      "description": "Engine power in kW with the source precision (154.6). Published by the source from 2026-05; carried to other registrations of the same VIN found in the source (2021 onward).",
       "minimum": 0
     },
     "own_weight": {
       "type": ["integer", "null"],
-      "description": "Vehicle curb weight in kg.",
-      "minimum": 0
+      "description": "Curb weight in kg as in the source."
     },
     "total_weight": {
       "type": ["integer", "null"],
-      "description": "Vehicle gross weight in kg.",
+      "description": "Gross weight in kg as in the source."
+    },
+    "payload": {
+      "type": ["integer", "null"],
+      "description": "total_weight − own_weight; null where own_weight exceeds total_weight (a source error).",
       "minimum": 0
     },
     "n_reg_new": {
       "type": ["string", "null"],
-      "description": "Vehicle registration plate number (new format). Absent from snapshots from 2026-05 onward: the source registry no longer publishes it."
-    },
-    "payload": {
-      "type": ["integer", "null"],
-      "description": "Vehicle payload capacity in kg.",
-      "minimum": 0
+      "description": "Registration plate, 2021-01 … 2026-04 only. Not published for 2013–2020; not in the source from 2026-05."
     },
     "secondary_fuel": {
       "type": ["string", "null"],
-      "description": "Secondary fuel type (e.g., ГАЗ for LPG/CNG vehicles)."
+      "description": "Secondary fuel (Газ for LPG/CNG, Електро for hybrids)."
     },
     "n_reg_latin": {
       "type": ["string", "null"],
-      "description": "Vehicle registration plate transliterated to Latin characters. Absent from snapshots from 2026-05 onward: derived from `n_reg_new`, which the source no longer publishes."
+      "description": "n_reg_new transliterated to Latin. Same periods as n_reg_new."
     },
     "is_valid_plate": {
       "type": ["boolean", "null"],
-      "description": "Whether the registration plate passes format validation. Absent from snapshots from 2026-05 onward: with no plate in the source, validity is unknown rather than false."
+      "description": "Whether the plate matches one of the standard civilian formats: AA0000AA (2004+), 00000AA (1995–2004), online-registration codes. Other formats (e.g. 16ВР3029, diplomatic) give false. Same periods as n_reg_new."
     },
     "raw_vin": {
       "type": ["string", "null"],
-      "description": "Original VIN as received from source. Null for records before 2021."
+      "description": "VIN exactly as in the source. From 2021."
     },
     "is_valid_vin": {
       "type": ["boolean", "null"],
-      "description": "Whether the VIN passes checksum and format validation. Null for records before 2021."
+      "description": "True when vin is 17 characters from the VIN alphabet (no I, O, Q) and does not start with 0. Format check only: the check digit is not verified, because most non-North-American VINs do not use one. From 2021."
     }
   },
-  "required": [],
+  "required": ["record_id", "d_reg"],
   "additionalProperties": false
 }

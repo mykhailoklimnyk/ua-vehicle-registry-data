@@ -12,6 +12,18 @@
 A normalized and data-quality enhanced derivative of a Ukrainian public-sector open dataset, designed for reproducible analytical use.
 
 > [!IMPORTANT]
+> ### Release 0.2.0 — the dataset was rebuilt from the MIA files only
+>
+> Version **0.2.0** (rebuilt on 2026-10-02) replaces every earlier build. It addresses issues [#1–#7](../../issues) reported by Qyperion. All 177 GitHub releases (13 yearly `v2013.full`…`v2025.full` and 164 monthly `v2013.01`…`v2026.08`) have their assets replaced in place with the 0.2.0 files; a new Zenodo version is published for 0.2.0.
+>
+> - **Source only.** The dataset is built solely from the files on [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0), exactly one MIA revision per period (list and SHA-256 in [`docs/SOURCES.md`](docs/SOURCES.md)). No internal enrichment.
+> - **One row = one unique source event.** Rows that are identical in every source field collapse into one; `record_id` is the MD5 of the trimmed raw fields. The column `record_ids` no longer exists. The yearly file `v2025.full` has 2,198,119 rows, equal to the unique events of the source.
+> - **Values as in the source.** No corrections of weights, capacity or year of manufacture; the last day of every month is no longer dropped; `power_kwt` keeps decimals.
+> - **Plates only for 2021-01…2026-04.** Plates are not published for 2013–2020 (by decision) and are absent in the source from 2026-05. `vin`, `raw_vin`, `is_valid_vin` exist only from 2021, because the source has no VIN before.
+>
+> Per-period verification (source file vs. published: 0 missing, 0 extra, 0 duplicate `record_id`) and the list of fixes are in [`docs/DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md).
+
+> [!IMPORTANT]
 > ### The source stopped publishing plates and owner KOATUU codes
 >
 > From the **2026-05** snapshot onward, the Ministry of Internal Affairs no longer includes the registration plate or the owner's KOATUU code in the published file. This is a change at the source — nothing was removed by this project.
@@ -67,10 +79,10 @@ This project provides **data-quality improvements** to the publicly available Uk
 
 - **Encoding normalization** — consistent UTF-8 encoding across all files
 - **Schema stabilization** — unified column names, types, and order across yearly snapshots
-- **Deduplication** — removal of exact duplicate records
+- **Deduplication** — rows identical in every source field collapse into one; the output has one row per unique source event
 - **Type coercion** — dates, integers, and categorical fields cast to proper types
 - **Brand & model normalization** — standardized naming (source data has inconsistent spelling)
-- **Error corrections** — fixing obvious data-entry mistakes in KOATUU codes, registration plates, and other fields
+- **Plate and VIN validation** — registration plates (2021-01…2026-04) and VINs (from 2021) are transliterated and validated; weights, capacity and year of manufacture are published as in the source, without corrections
 - **Reference dictionaries** — added lookup tables based on public sources (e.g., service center addresses)
 - **Parquet format** — compressed, columnar format for efficient analytical queries (recommended). A CSV version is also available.
 
@@ -101,19 +113,19 @@ The source registry changed what it publishes, so the derived dataset changes wi
 
 | From | Change |
 |---|---|
-| 2026-04 | `record_ids` (array) is replaced by `record_id` (single source record ID) |
-| 2026-04 | `power_kwt` added — engine power in kW |
+| 0.2.0 | `record_ids` (array) no longer exists; `record_id` is the MD5 of the trimmed source fields, unique in the dataset |
+| 2026-05 | `power_kwt` added — engine power in kW, a float with decimals; carried to other records of the same valid VIN |
 | 2026-05 | `reg_addr_koatuu`, `n_reg_new`, `n_reg_latin`, `is_valid_plate` are **no longer present**: the registry stopped publishing the plate and the owner's KOATUU code |
 
 The four dropped columns are omitted from the file rather than written as all-null, because an empty column does not let you tell "no data" from "no value". Snapshots up to 2026-04 keep them, so **releases published earlier are unchanged**.
 
-A snapshot has 27 columns up to 2026-03, 28 for 2026-04, and 24 from 2026-05. Read columns by name and treat each as optional.
+Columns that are entirely empty in a period are dropped from that period's file, so the column set differs between periods. Read columns by name and treat each as optional.
 
 ## Downloads
 
 The **CSV**, **Parquet** and **DQ** links in the tables below always serve the current version of each period.
 
-The **Release** link opens the GitHub release, whose attached files are a frozen snapshot of what was published on that date. Where a period has since been reprocessed, the attachments still hold the older extract while the links above hold the corrected one. Releases are deliberately left untouched so that a DOI keeps pointing at the exact bytes it was minted for. **For analysis, prefer the CSV/Parquet links; cite the release when you need a fixed, citable artefact.**
+The **Release** link opens the GitHub release. Since 0.2.0 the assets of all 177 releases have been replaced in place with the 0.2.0 files, so the release assets, the CSV/Parquet links and Zenodo (new version for 0.2.0) hold the same build. Files of earlier builds are superseded; to reproduce a result, cite the version.
 
 <!-- DOWNLOADS:START -->
 ### Yearly
