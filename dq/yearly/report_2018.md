@@ -1,37 +1,36 @@
 # DQ Report: mvs_opendata — 2018
 
-**Status:** PASS  
-**Rows:** 1,545,872  
-**Checks:** 12/16 passed, 4 failed  
-**Timestamp:** 2026-03-19T14:26:10.804319
+**Status:** WARN  
+**Rows:** 1,546,206  
+**Checks:** 10/14 passed, 4 failed  
+**Timestamp:** 2026-10-03T00:37:56.573819
 
 ## Failed Checks
 
 | Field | Check | Severity | Total | Failed | Detail |
 |-------|-------|----------|------:|-------:|--------|
-| capacity | range | info | 1455908 | 24 | [0, 20000] |
-| own_weight | range | info | 1544818 | 808 | [40, 45000] |
-| total_weight | range | info | 1545784 | 220 | [60, 90000] |
-| payload | range | info | 1544799 | 1193 | [0, 35000] |
+| capacity | range | info | 1447166 | 24 | [0, 20000] |
+| own_weight | range | info | 1545179 | 786 | [40, 45000] |
+| total_weight | range | info | 1546118 | 220 | [60, 90000] |
+| payload | range | info | 1543415 | 1193 | [0, 35000] |
 
 ## All Checks
 
 | Field | Check | Status | Detail |
 |-------|-------|--------|--------|
-| record_ids | not_null | PASS | 100.00% |
+| record_id | not_null | PASS | 100.00% |
 | person_type | not_null | PASS | 100.00% |
 | person_type | allowed_values | PASS | ['J', 'P'] |
-| reg_addr_koatuu | distinct_count | INFO | 23522 |
+| reg_addr_koatuu | distinct_count | INFO | 23523 |
 | oper_code | distinct_count | INFO | 107 |
-| oper_name | distinct_count | INFO | 138 |
+| oper_name | distinct_count | INFO | 136 |
 | d_reg | not_null | PASS | 100.00% |
 | d_reg | distinct_count | INFO | 334 |
-| dep_code | not_null | PASS | 100.00% |
 | dep_code | distinct_count | INFO | 173 |
 | dep_name | distinct_count | INFO | 175 |
-| brand | distinct_count | INFO | 1895 |
-| model | distinct_count | INFO | 12499 |
-| vin | distinct_count | INFO | 0 |
+| brand | distinct_count | INFO | 1821 |
+| model | distinct_count | INFO | 12507 |
+| vin | column_exists | SKIP | No values in source for this period — column omitted |
 | make_year | not_null | PASS | 100.00% |
 | make_year | range | PASS | [1900, 2027] |
 | make_year | distinct_count | INFO | 87 |
@@ -39,21 +38,23 @@
 | color | distinct_count | INFO | 12 |
 | kind | not_null | PASS | 100.00% |
 | kind | distinct_count | INFO | 10 |
-| body | distinct_count | INFO | 63 |
+| body | distinct_count | INFO | 66 |
 | purpose | not_null | PASS | 100.00% |
 | purpose | distinct_count | INFO | 3 |
 | fuel | distinct_count | INFO | 4 |
 | capacity | range | FAIL | [0, 20000] |
 | capacity | distinct_count | INFO | 3225 |
+| power_kwt | column_exists | SKIP | No values in source for this period — column omitted |
 | own_weight | range | FAIL | [40, 45000] |
-| own_weight | distinct_count | INFO | 8283 |
+| own_weight | distinct_count | INFO | 8403 |
 | total_weight | range | FAIL | [60, 90000] |
 | total_weight | distinct_count | INFO | 5312 |
-| n_reg_new | distinct_count | INFO | 1387595 |
+| n_reg_new | column_exists | SKIP | No values in source for this period — column omitted |
 | payload | range | FAIL | [0, 35000] |
-| payload | distinct_count | INFO | 12231 |
+| payload | distinct_count | INFO | 12185 |
 | secondary_fuel | distinct_count | INFO | 3 |
-| n_reg_latin | distinct_count | INFO | 1387475 |
-| is_valid_plate | not_null | PASS | 100.00% |
-| raw_vin | distinct_count | INFO | 0 |
+| n_reg_latin | column_exists | SKIP | No values in source for this period — column omitted |
+| is_valid_plate | column_exists | SKIP | No values in source for this period — column omitted |
+| raw_vin | column_exists | SKIP | No values in source for this period — column omitted |
+| is_valid_vin | column_exists | SKIP | No values in source for this period — column omitted |
 | _table_ | row_count | PASS |  |
