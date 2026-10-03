@@ -45,7 +45,7 @@ Column order is fixed; a file contains the listed columns minus those omitted by
 | 9 | `brand` | `STRING` | Yes | Brand, Latin; catalogue spelling where the brand is in the catalogue |
 | 10 | `model` | `STRING` | Yes | Model, Latin; catalogue model family where one exists |
 | 11 | `vin` | `STRING` | Yes | Normalized VIN (see notes). From 2021. |
-| 12 | `make_year` | `INTEGER` | Yes | Year of manufacture as in the source |
+| 12 | `make_year` | `INTEGER` | Yes | Year of manufacture as in the source; NULL when later than the registration year + 1 |
 | 13 | `color` | `STRING` | Yes | Body color |
 | 14 | `kind` | `STRING` | Yes | Vehicle kind |
 | 15 | `body` | `STRING` | Yes | Body type group |
@@ -78,8 +78,11 @@ Column order is fixed; a file contains the listed columns minus those omitted by
   every year alike.
 - **`power_kwt`**: the source publishes it from 2026-05. It is carried to other registrations of
   the same VIN in the source, so it can appear on 2021 – 2026-04 rows; there are no VINs before 2021.
-- **`capacity`, `own_weight`, `total_weight`, `make_year`** are not corrected. Electric vehicles
-  keep the source capacity (often empty). `make_year = 1900` is a source placeholder.
+- **`capacity`, `own_weight`, `total_weight`** are not corrected. Electric vehicles keep the
+  source capacity (often empty).
+- **`make_year`** is as in the source, except a year later than the registration year + 1 —
+  an impossible value — which is published as NULL. Four obvious typos of 2013 are corrected
+  (2088 → 2008, 2033 → 2003 twice, 2036 → 2006). `make_year = 1900` is a source placeholder.
 - **Placeholders** kept as values: `color`/`kind` `Невизначений`, `body` `Невизначений`. They are
   the source's own value, not a missing one.
 - **`color`**: the 2025+ source spelling `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` is published as `Оранжевий`,

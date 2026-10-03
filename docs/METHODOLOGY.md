@@ -40,8 +40,12 @@ one** source file, and the periods do not overlap (see SOURCES.md).
    published once. No fuzzy matching.
 7. **Normalization of categorical values** with public dictionaries:
    * brand → Latin, catalogue spelling for brands present in the reference catalogue;
-   * model → catalogue model family where it exists, matched on the source model with and
-     without spaces and hyphens; otherwise the source model transliterated to Latin;
+   * model → model of the reference catalogue, which is organised as make → model → generation.
+     A variant that the catalogue treats as a generation is published under its model
+     (`GOLF PLUS` → `Golf`, `C4 PICASSO` → `C4`). Where the catalogue model depends on the year
+     of manufacture, the year decides (`MEGANE SCENIC` 1996–1998 → `Megane`, later → `Scenic`).
+     Matched on the source model with and without spaces and hyphens; models not in the
+     catalogue are the source model transliterated to Latin;
    * fuel → primary + secondary fuel (`ЕЛЕКТРО АБО ДИЗЕЛЬНЕ ПАЛИВО` → `Дизель` + `Електро`);
    * body → body group; color `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` → `ОРАНЖЕВИЙ`;
    * operation name: Latin `I` inside Cyrillic words → Cyrillic `І`.

@@ -55,7 +55,7 @@
     },
     "make_year": {
       "type": ["integer", "null"],
-      "description": "Year of manufacture as in the source. 1900 is a source placeholder for an unknown year."
+      "description": "Year of manufacture as in the source; NULL when later than the registration year + 1 (impossible value). Four 2013 typos corrected (2088→2008, 2033→2003 twice, 2036→2006). 1900 is a source placeholder for an unknown year."
     },
     "color": {
       "type": ["string", "null"],

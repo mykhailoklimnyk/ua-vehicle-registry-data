@@ -170,7 +170,7 @@ These anomalies are present in the raw MIA source data and are inherited in the 
 | # | Anomaly | Condition | Description |
 |---|---|---|---|
 | 1 | Negative weight | `own_weight < 0` or `total_weight < 0` | Data-entry errors in the source |
-| 2 | Vehicles from the "future" | `make_year > 2027` | Data-entry errors (year of manufacture beyond plausible range) |
+| 2 | Vehicles from the "future" | `make_year` later than the registration year + 1 | Data-entry errors; published as NULL (four 2013 typos corrected, see schema) |
 | 3 | Weight > 200 tonnes | `own_weight > 200000` | Data-entry errors (weight in grams instead of kg, or similar) |
 | 4 | Curb weight > gross weight | `own_weight > total_weight` | Logically impossible: curb weight cannot exceed gross weight (`payload` is NULL in this case) |
 | 5 | Engine capacity > 50 L | `capacity > 50000` | Data-entry errors (capacity in mL instead of cm³, or similar) |
@@ -232,8 +232,8 @@ All seven issues were reported by Qyperion.
 | #2 | More rows than in the source: the old build mixed rows of older MIA revisions and repeated the same event with different spellings. | One revision per period; exact duplicates collapsed. `v2025.full` has 2,198,119 rows = unique source events. |
 | #3 | `ЕЛЕКТРО АБО ДИЗЕЛЬНЕ ПАЛИВО` was mapped to a petrol hybrid. | Fuel `Дизель`, secondary fuel `Електро`. |
 | #4 | `POWER_KWT` with a decimal comma (e.g. `154,6`) was lost. | Parsed; `power_kwt` is a float with decimals. Present in the source from 2026-05; carried to other records of the same valid VIN from the source. |
-| #5 | The same brand or model was spelled in several ways. | Dictionaries fixed: a single Latin spelling per brand, model families. |
-| #6 | Values differed from the source. | `own_weight`, `total_weight`, `capacity`, `make_year` as in the source (no "corrections"); `payload` is NULL when `total_weight < own_weight`; `is_valid_vin` is true only for valid 17-character VINs; a VIN keeps non-lookalike Cyrillic letters instead of deleting them; an empty plate gives `is_valid_plate` NULL. |
+| #5 | The same brand or model was spelled in several ways. | A single Latin spelling per brand. A model follows the reference catalogue (make → model → generation): a generation is published under its model (`Golf Plus` → `Golf`), and where the model depends on the year of manufacture the year decides (`Megane Scenic` 1996–1998 → `Megane`). |
+| #6 | Values differed from the source. | `own_weight`, `total_weight`, `capacity` as in the source (no "corrections"); `make_year` as in the source, NULL when later than the registration year + 1, four 2013 typos corrected; `payload` is NULL when `total_weight < own_weight`; `is_valid_vin` is true only for valid 17-character VINs; a VIN keeps non-lookalike Cyrillic letters instead of deleting them; an empty plate gives `is_valid_plate` NULL. |
 | #7 | 2019 had about 204,000 rows that are not in the current MIA file (an older revision). | Removed. Colour `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` unified to `Оранжевий`; Latin `I` inside Cyrillic words of `oper_name` replaced by Cyrillic `І`; body types mapped consistently. |
 
 ## Publication Rules
