@@ -176,16 +176,20 @@ These anomalies are present in the raw MIA source data and are inherited in the 
 | 5 | Engine capacity > 50 L | `capacity > 50000` | Data-entry errors (capacity in mL instead of cm³, or similar) |
 | 6 | Duplicate source records | — | Rows identical in every source field are published once; the column `record_ids` no longer exists |
 
-> **Note:** These anomalies are flagged in the per-release Data Quality report (Markdown file included in each GitHub Release).
+> **Note:** Rows 2, 3 and 5 show up in the per-release Data Quality report as failed `range` checks (together with `payload` out of range). Row 4 is not a separate check: `payload` is NULL for such rows. Row 6 is counted per period in the verification table above.
 
 ## Per-Release Data Quality Reports
 
 Each GitHub Release includes a Data Quality (DQ) report in Markdown format. The report contains:
 
-- Record counts (source vs. output)
-- Null-rate statistics per column
-- Anomaly detection results (see table above)
-- Validation pass/fail summary for plates and VINs
+- Row count of the file (`row_count`, fails only on an empty or truncated file)
+- `not_null` share for required columns and `allowed_values` for `person_type`
+- `range` checks for numeric columns (`make_year`, `capacity`, `power_kwt`, weights, `payload`) — failures here are source values outside the expected range, kept as in the source
+- Distinct-value counts per column
+- `SKIP` for columns omitted from the period (no values or not published)
+- Overall status: `FAIL` only for a critical failure, `WARN` when only source values are out of range, `PASS` with no failures
+
+Source-vs-output row counts per period are in the verification table above, not in the per-release report.
 
 Reports are generated automatically by the pipeline and attached to the release alongside data files.
 
