@@ -16,7 +16,7 @@ A normalized and data-quality enhanced derivative of a Ukrainian public-sector o
 >
 > Version **0.2.0** (rebuilt on 2026-10-02) replaces every earlier build. It addresses issues [#1–#7](../../issues) reported by Qyperion. All 177 GitHub releases (13 yearly `v2013.full`…`v2025.full` and 164 monthly `v2013.01`…`v2026.08`) have their assets replaced in place with the 0.2.0 files; a new Zenodo version is published for 0.2.0.
 >
-> - **Source only.** The dataset is built solely from the files on [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0), exactly one MIA revision per period (list and SHA-256 in [`docs/SOURCES.md`](docs/SOURCES.md)). No internal enrichment.
+> - **Source only.** The dataset is built solely from the files on [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0), exactly one MIA revision per period (list and SHA-256 in [`docs/SOURCES.md`](docs/SOURCES.md)).
 > - **One row = one unique source event.** Rows that are identical in every source field collapse into one; `record_id` is the MD5 of the trimmed raw fields. The column `record_ids` no longer exists. The yearly file `v2025.full` has 2,198,119 rows, equal to the unique events of the source.
 > - **Values as in the source.** No corrections of weights, capacity or year of manufacture; the last day of every month is no longer dropped; `power_kwt` keeps decimals.
 > - **Plates only for 2021-01…2026-04.** Plates are not published for 2013–2020 (by decision) and are absent in the source from 2026-05. `vin`, `raw_vin`, `is_valid_vin` exist only from 2021, because the source has no VIN before.

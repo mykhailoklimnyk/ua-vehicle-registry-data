@@ -13,7 +13,7 @@ This document catalogs the data quality problems found in the source dataset and
 | **Published rows** | 24,853,334 |
 | **Row definition** | one row = one unique source event; exact duplicate rows of the source collapse into one (`record_id` = MD5 of the trimmed raw fields) |
 
-The dataset is built only from the MIA files; no internal enrichment is used. The column `record_ids` no longer exists. The current MIA 2026 file ends on 2026-08-30 (there are no 2026-08-31 rows in the source).
+The dataset is built only from the MIA files. The column `record_ids` no longer exists. The current MIA 2026 file ends on 2026-08-30 (there are no 2026-08-31 rows in the source).
 
 ## Catalog of Source Data Problems
 

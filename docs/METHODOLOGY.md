@@ -55,8 +55,7 @@ one** source file, and the periods do not overlap (see SOURCES.md).
 ## 4. What is not published
 
 * Registration plates for 2013–2020.
-* Any enrichment from non-public sources: VINs for years whose source files have none,
-  corrected body types and similar are not in this dataset.
+* Anything that is not in the source files: only values present in the MIA files are published.
 
 ## 5. Output
 
