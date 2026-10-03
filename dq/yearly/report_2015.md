@@ -3,7 +3,7 @@
 **Status:** WARN  
 **Rows:** 1,294,977  
 **Checks:** 9/13 passed, 4 failed  
-**Timestamp:** 2026-10-03T09:35:41.436172
+**Timestamp:** 2026-10-03T15:38:06.650838
 
 ## Failed Checks
 
@@ -48,12 +48,11 @@
 | own_weight | distinct_count | INFO | 7130 |
 | total_weight | range | FAIL | [60, 90000] |
 | total_weight | distinct_count | INFO | 5311 |
-| n_reg_new | column_exists | SKIP | Not published for this period — column omitted |
+| n_reg_new | distinct_count | INFO | 1108757 |
 | payload | range | FAIL | [0, 35000] |
 | payload | distinct_count | INFO | 9424 |
 | secondary_fuel | distinct_count | INFO | 2 |
-| n_reg_latin | column_exists | SKIP | Not published for this period — column omitted |
-| is_valid_plate | column_exists | SKIP | Not published for this period — column omitted |
+| n_reg_latin | distinct_count | INFO | 1108333 |
 | raw_vin | column_exists | SKIP | Not published for this period — column omitted |
 | is_valid_vin | column_exists | SKIP | Not published for this period — column omitted |
 | _table_ | row_count | PASS |  |
