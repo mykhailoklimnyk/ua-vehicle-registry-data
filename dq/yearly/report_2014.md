@@ -2,8 +2,8 @@
 
 **Status:** WARN  
 **Rows:** 1,438,318  
-**Checks:** 10/14 passed, 4 failed  
-**Timestamp:** 2026-10-03T00:23:11.840842
+**Checks:** 9/13 passed, 4 failed  
+**Timestamp:** 2026-10-03T09:32:38.787051
 
 ## Failed Checks
 
@@ -29,9 +29,8 @@
 | dep_code | distinct_count | INFO | 354 |
 | dep_name | distinct_count | INFO | 422 |
 | brand | distinct_count | INFO | 1663 |
-| model | distinct_count | INFO | 9928 |
-| vin | column_exists | SKIP | No values in source for this period — column omitted |
-| make_year | not_null | PASS | 100.00% |
+| model | distinct_count | INFO | 9923 |
+| vin | column_exists | SKIP | Not published for this period — column omitted |
 | make_year | range | PASS | [1900, 2027] |
 | make_year | distinct_count | INFO | 84 |
 | color | not_null | PASS | 100.00% |
@@ -44,17 +43,17 @@
 | fuel | distinct_count | INFO | 4 |
 | capacity | range | FAIL | [0, 20000] |
 | capacity | distinct_count | INFO | 3214 |
-| power_kwt | column_exists | SKIP | No values in source for this period — column omitted |
+| power_kwt | column_exists | SKIP | Not published for this period — column omitted |
 | own_weight | range | FAIL | [40, 45000] |
 | own_weight | distinct_count | INFO | 6946 |
 | total_weight | range | FAIL | [60, 90000] |
 | total_weight | distinct_count | INFO | 5298 |
-| n_reg_new | column_exists | SKIP | No values in source for this period — column omitted |
+| n_reg_new | column_exists | SKIP | Not published for this period — column omitted |
 | payload | range | FAIL | [0, 35000] |
 | payload | distinct_count | INFO | 9106 |
 | secondary_fuel | distinct_count | INFO | 2 |
-| n_reg_latin | column_exists | SKIP | No values in source for this period — column omitted |
-| is_valid_plate | column_exists | SKIP | No values in source for this period — column omitted |
-| raw_vin | column_exists | SKIP | No values in source for this period — column omitted |
-| is_valid_vin | column_exists | SKIP | No values in source for this period — column omitted |
+| n_reg_latin | column_exists | SKIP | Not published for this period — column omitted |
+| is_valid_plate | column_exists | SKIP | Not published for this period — column omitted |
+| raw_vin | column_exists | SKIP | Not published for this period — column omitted |
+| is_valid_vin | column_exists | SKIP | Not published for this period — column omitted |
 | _table_ | row_count | PASS |  |
