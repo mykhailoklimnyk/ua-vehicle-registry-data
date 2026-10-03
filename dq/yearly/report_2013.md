@@ -1,9 +1,9 @@
 # DQ Report: mvs_opendata — 2013
 
-**Status:** FAIL  
+**Status:** WARN  
 **Rows:** 1,934,341  
 **Checks:** 9/14 passed, 5 failed  
-**Timestamp:** 2026-10-03T00:18:11.490958
+**Timestamp:** 2026-10-03T02:10:45.689754
 
 ## Failed Checks
 
