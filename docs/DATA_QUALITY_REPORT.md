@@ -31,7 +31,7 @@ All source files (2013–2026) were analyzed. The following issues were found sy
 
 ### 2. Inconsistent Column Names
 
-**Problem:** Column headers change between years — different naming, different casing, different abbreviations. The schema also evolved structurally: files before mid-2021 have 19 columns, while files from July 2021 onward include a `VIN` column (20 columns in source). In the output, all records have 20 columns — VIN is set to `null` for pre-2021 data. One 2019 file shipped with an extra `BIRTHDAY` column (personal data that should not have been published). Examples of naming variation:
+**Problem:** Column headers change between years — different naming, different casing, different abbreviations. The schema also evolved structurally: files before 2021 have 19 columns, while files from 2021 onward include a `VIN` column (20 columns in source). In the output, all records have 20 columns — VIN is set to `null` for pre-2021 data. One 2019 file shipped with an extra `BIRTHDAY` column (personal data that should not have been published). Examples of naming variation:
 - `MAKE_YEAR` in some years vs. `VYP` or `rik_vypusku` in others
 - `CAPACITY` vs. `OB_DVYG`
 - `OWN_WEIGHT` vs. `VLASNA_VAGA`
