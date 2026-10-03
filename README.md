@@ -19,7 +19,7 @@ A normalized and data-quality enhanced derivative of a Ukrainian public-sector o
 > - **Source only.** The dataset is built solely from the files on [data.gov.ua](https://data.gov.ua/dataset/06779371-308f-42d7-895e-5a39833375f0), exactly one MIA revision per period (list and SHA-256 in [`docs/SOURCES.md`](docs/SOURCES.md)).
 > - **One row = one unique source event.** Rows that are identical in every source field collapse into one; `record_id` is the MD5 of the trimmed raw fields. The column `record_ids` no longer exists. The yearly file `v2025.full` has 2,198,119 rows, equal to the unique events of the source.
 > - **Values as in the source.** No corrections of weights, capacity or year of manufacture; the last day of every month is no longer dropped; `power_kwt` keeps decimals.
-> - **Plates only for 2021-01-01…2026-04-29.** Plates are not published for 2013–2020 (by decision) and are absent in the source from 2026-04-30. `vin`, `raw_vin`, `is_valid_vin` are not published for 2013–2020.
+> - **Plates up to 2026-04-29.** Registration plates are absent in the source from 2026-04-30. `vin`, `raw_vin`, `is_valid_vin` are not published for 2013–2020.
 >
 > Per-period verification (source file vs. published: 0 missing, 0 extra, 0 duplicate `record_id`) and the list of fixes are in [`docs/DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md).
 
@@ -82,7 +82,7 @@ This project provides **data-quality improvements** to the publicly available Uk
 - **Deduplication** — rows identical in every source field collapse into one; the output has one row per unique source event
 - **Type coercion** — dates, integers, and categorical fields cast to proper types
 - **Brand & model normalization** — standardized naming (source data has inconsistent spelling)
-- **Plate and VIN validation** — registration plates (2021-01-01…2026-04-29) and VINs (from 2021) are transliterated and validated; weights, capacity and year of manufacture are published as in the source, without corrections
+- **Plate and VIN validation** — registration plates (up to 2026-04-29) and VINs (from 2021) are transliterated and validated; weights, capacity and year of manufacture are published as in the source, without corrections
 - **Reference dictionaries** — added lookup tables based on public sources (e.g., service center addresses)
 - **Parquet format** — compressed, columnar format for efficient analytical queries (recommended). A CSV version is also available.
 

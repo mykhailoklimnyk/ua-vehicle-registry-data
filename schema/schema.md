@@ -19,13 +19,13 @@ generations; 3.0 replaces them.
 
 1. **`record_id` everywhere.** The `record_ids` array (2013 – 2026-03) is gone. Each row is one
    distinct source row; `record_id` is the MD5 of its source fields and is unique.
-2. **No registration plates for 2013–2020.** `n_reg_new`, `n_reg_latin`, `is_valid_plate` are
-   published for 2021-01-01 … 2026-04-29 only. From 2026-04-30 the source has no plates.
+2. **Registration plates up to 2026-04-29.** `n_reg_new`, `n_reg_latin`, `is_valid_plate` are
+   published as in the source. From 2026-04-30 the source has no plates.
 3. **`power_kwt` is a number** with the source precision (`154.6`), not an integer. Values written
    with a decimal comma were previously lost.
 4. **`d_reg` is a Parquet `DATE`**, not a string. Booleans in CSV are `true`/`false`.
 5. **Empty columns are omitted.** A column with no published values for a period is left out of
-   that file: VIN columns and `power_kwt` for 2013–2020, plates outside 2021-01-01 … 2026-04-29,
+   that file: VIN columns and `power_kwt` for 2013–2020, plates from 2026-04-30,
    `reg_addr_koatuu` from 2026-04-30.
 
 Column order is fixed; a file contains the listed columns minus those omitted by rule 5.
@@ -55,7 +55,7 @@ Column order is fixed; a file contains the listed columns minus those omitted by
 | 19 | `power_kwt` | `DOUBLE` | Yes | Engine power, kW, source precision. From 2021 (see notes). |
 | 20 | `own_weight` | `INTEGER` | Yes | Curb weight, kg, as in the source |
 | 21 | `total_weight` | `INTEGER` | Yes | Gross weight, kg, as in the source |
-| 22 | `n_reg_new` | `STRING` | Yes | Registration plate. 2021-01-01 … 2026-04-29 only. |
+| 22 | `n_reg_new` | `STRING` | Yes | Registration plate. Up to 2026-04-29. |
 | 23 | `payload` | `INTEGER` | Yes | `total_weight − own_weight`; null if `own_weight > total_weight` |
 | 24 | `secondary_fuel` | `STRING` | Yes | Secondary fuel (`Газ`, `Електро`) |
 | 25 | `n_reg_latin` | `STRING` | Yes | `n_reg_new` in Latin script. Same periods. |

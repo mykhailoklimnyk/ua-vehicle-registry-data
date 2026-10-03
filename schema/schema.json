@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/blob/main/schema/schema.json",
   "title": "UA Vehicle Registry — Normalized Record",
-  "description": "Schema for a single record in the normalized UA vehicle registry snapshots (v3.0). All snapshots 2013–2026 are built the same way: one revision of the MIA open registry per period (docs/SOURCES.md), one row per distinct source row, identified by `record_id`. A column for which the source has no value in a given period is omitted from that file rather than written as all-null: registration plates and VIN are not published for 2013–2020, engine power is published by the source from 2026-04-30, plates and owner KOATUU are not published by the source from 2026-04-30. Read columns by name and treat every column as optional.",
+  "description": "Schema for a single record in the normalized UA vehicle registry snapshots (v3.0). All snapshots 2013–2026 are built the same way: one revision of the MIA open registry per period (docs/SOURCES.md), one row per distinct source row, identified by `record_id`. A column for which the source has no value in a given period is omitted from that file rather than written as all-null: VIN is not published for 2013–2020, engine power is published by the source from 2026-04-30, plates and owner KOATUU are not published by the source from 2026-04-30. Read columns by name and treat every column as optional.",
   "type": "object",
   "properties": {
     "record_id": {
@@ -102,7 +102,7 @@
     },
     "n_reg_new": {
       "type": ["string", "null"],
-      "description": "Registration plate, 2021-01-01 … 2026-04-29 only. Not published for 2013–2020; not in the source from 2026-04-30."
+      "description": "Registration plate, up to 2026-04-29; not in the source from 2026-04-30."
     },
     "secondary_fuel": {
       "type": ["string", "null"],

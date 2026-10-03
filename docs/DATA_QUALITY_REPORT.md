@@ -238,7 +238,7 @@ All seven issues were reported by Qyperion.
 
 ## Publication Rules
 
-* Registration plates (`n_reg_new`, `n_reg_latin`, `is_valid_plate`) are published only for 2021-01-01…2026-04-29: not for 2013–2020 (by decision), and absent in the source from 2026-04-30.
+* Registration plates (`n_reg_new`, `n_reg_latin`, `is_valid_plate`) are published up to 2026-04-29; from 2026-04-30 they are absent in the source.
 * `vin`, `raw_vin`, `is_valid_vin` are not published for 2013–2020.
 * `reg_addr_koatuu` is absent in the source from 2026-04-30.
 * Columns that are entirely empty in a period are dropped from that period's file.

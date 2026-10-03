@@ -156,7 +156,7 @@
           {
             "name": "n_reg_new",
             "type": "string",
-            "description": "Registration plate, 2021-01-01 … 2026-04-29 only. Not published for 2013–2020; not in the source from 2026-04-30."
+            "description": "Registration plate, up to 2026-04-29; not in the source from 2026-04-30."
           },
           {
             "name": "payload",

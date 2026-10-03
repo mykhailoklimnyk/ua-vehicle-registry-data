@@ -58,7 +58,7 @@ one** source file, and the periods do not overlap (see SOURCES.md).
 
 ## 4. What is not published
 
-* Registration plates for 2013–2020.
+* VINs for 2013–2020.
 * Anything that is not in the source files: only values present in the MIA files are published.
 
 ## 5. Output
