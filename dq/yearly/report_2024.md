@@ -2,8 +2,8 @@
 
 **Status:** WARN  
 **Rows:** 2,338,951  
-**Checks:** 11/15 passed, 4 failed  
-**Timestamp:** 2026-10-03T01:05:34.319187
+**Checks:** 10/14 passed, 4 failed  
+**Timestamp:** 2026-10-03T10:25:33.490117
 
 ## Failed Checks
 
@@ -29,9 +29,8 @@
 | dep_code | distinct_count | INFO | 156 |
 | dep_name | distinct_count | INFO | 156 |
 | brand | distinct_count | INFO | 2081 |
-| model | distinct_count | INFO | 14910 |
+| model | distinct_count | INFO | 14887 |
 | vin | distinct_count | INFO | 1832536 |
-| make_year | not_null | PASS | 100.00% |
 | make_year | range | PASS | [1900, 2027] |
 | make_year | distinct_count | INFO | 91 |
 | color | not_null | PASS | 100.00% |
