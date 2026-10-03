@@ -2,14 +2,13 @@
 
 **Status:** WARN  
 **Rows:** 1,934,341  
-**Checks:** 9/14 passed, 5 failed  
-**Timestamp:** 2026-10-03T02:10:45.689754
+**Checks:** 9/13 passed, 4 failed  
+**Timestamp:** 2026-10-03T09:28:57.344268
 
 ## Failed Checks
 
 | Field | Check | Severity | Total | Failed | Detail |
 |-------|-------|----------|------:|-------:|--------|
-| make_year | range | warning | 1934341 | 4 | [1900, 2027] |
 | capacity | range | info | 1851789 | 53 | [0, 20000] |
 | own_weight | range | info | 1865803 | 267 | [40, 45000] |
 | total_weight | range | info | 1923700 | 53 | [60, 90000] |
@@ -30,11 +29,10 @@
 | dep_code | distinct_count | INFO | 414 |
 | dep_name | distinct_count | INFO | 544 |
 | brand | distinct_count | INFO | 1738 |
-| model | distinct_count | INFO | 10435 |
-| vin | column_exists | SKIP | No values in source for this period — column omitted |
-| make_year | not_null | PASS | 100.00% |
-| make_year | range | FAIL | [1900, 2027] |
-| make_year | distinct_count | INFO | 88 |
+| model | distinct_count | INFO | 10430 |
+| vin | column_exists | SKIP | Not published for this period — column omitted |
+| make_year | range | PASS | [1900, 2027] |
+| make_year | distinct_count | INFO | 81 |
 | color | not_null | PASS | 100.00% |
 | color | distinct_count | INFO | 11 |
 | kind | not_null | PASS | 100.00% |
@@ -45,17 +43,17 @@
 | fuel | distinct_count | INFO | 4 |
 | capacity | range | FAIL | [0, 20000] |
 | capacity | distinct_count | INFO | 3486 |
-| power_kwt | column_exists | SKIP | No values in source for this period — column omitted |
+| power_kwt | column_exists | SKIP | Not published for this period — column omitted |
 | own_weight | range | FAIL | [40, 45000] |
 | own_weight | distinct_count | INFO | 7582 |
 | total_weight | range | FAIL | [60, 90000] |
 | total_weight | distinct_count | INFO | 5956 |
-| n_reg_new | column_exists | SKIP | No values in source for this period — column omitted |
+| n_reg_new | column_exists | SKIP | Not published for this period — column omitted |
 | payload | range | FAIL | [0, 35000] |
 | payload | distinct_count | INFO | 9912 |
 | secondary_fuel | distinct_count | INFO | 2 |
-| n_reg_latin | column_exists | SKIP | No values in source for this period — column omitted |
-| is_valid_plate | column_exists | SKIP | No values in source for this period — column omitted |
-| raw_vin | column_exists | SKIP | No values in source for this period — column omitted |
-| is_valid_vin | column_exists | SKIP | No values in source for this period — column omitted |
+| n_reg_latin | column_exists | SKIP | Not published for this period — column omitted |
+| is_valid_plate | column_exists | SKIP | Not published for this period — column omitted |
+| raw_vin | column_exists | SKIP | Not published for this period — column omitted |
+| is_valid_vin | column_exists | SKIP | Not published for this period — column omitted |
 | _table_ | row_count | PASS |  |
