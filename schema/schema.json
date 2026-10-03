@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/mykhailoklimnyk/ua-vehicle-registry-data/blob/main/schema/schema.json",
   "title": "UA Vehicle Registry — Normalized Record",
-  "description": "Schema for a single record in the normalized UA vehicle registry snapshots (v3.0). All snapshots 2013–2026 are built the same way: one revision of the MIA open registry per period (docs/SOURCES.md), one row per distinct source row, identified by `record_id`. A column for which the source has no value in a given period is omitted from that file rather than written as all-null: registration plates are not published for 2013–2020, VIN and engine power exist only from 2021, plates and owner KOATUU are not published by the source from 2026-05. Read columns by name and treat every column as optional.",
+  "description": "Schema for a single record in the normalized UA vehicle registry snapshots (v3.0). All snapshots 2013–2026 are built the same way: one revision of the MIA open registry per period (docs/SOURCES.md), one row per distinct source row, identified by `record_id`. A column for which the source has no value in a given period is omitted from that file rather than written as all-null: registration plates and VIN are not published for 2013–2020, engine power is published by the source from 2026-04-30, plates and owner KOATUU are not published by the source from 2026-04-30. Read columns by name and treat every column as optional.",
   "type": "object",
   "properties": {
     "record_id": {
@@ -17,7 +17,7 @@
     },
     "reg_addr_koatuu": {
       "type": ["string", "null"],
-      "description": "KOATUU code of the owner's registered address, as a string to keep leading zeros. Not in snapshots from 2026-05: the source no longer publishes it.",
+      "description": "KOATUU code of the owner's registered address, as a string to keep leading zeros. Not in the source from 2026-04-30.",
       "pattern": "^[0-9]{10}$"
     },
     "oper_code": {
@@ -35,7 +35,7 @@
     },
     "dep_code": {
       "type": ["string", "null"],
-      "description": "Service center code, as a string. From 2026-05 recovered from the service center name; null where no match exists."
+      "description": "Service center code, as a string. From 2026-04-30 recovered from the service center name; null where no match exists."
     },
     "dep_name": {
       "type": ["string", "null"],
@@ -84,7 +84,7 @@
     },
     "power_kwt": {
       "type": ["number", "null"],
-      "description": "Engine power in kW with the source precision (154.6). Published by the source from 2026-05; carried to other registrations of the same VIN found in the source (2021 onward).",
+      "description": "Engine power in kW with the source precision (154.6). Published by the source from 2026-04-30; carried to other registrations of the same VIN found in the source (2021 onward).",
       "minimum": 0
     },
     "own_weight": {
@@ -102,7 +102,7 @@
     },
     "n_reg_new": {
       "type": ["string", "null"],
-      "description": "Registration plate, 2021-01 … 2026-04 only. Not published for 2013–2020; not in the source from 2026-05."
+      "description": "Registration plate, 2021-01-01 … 2026-04-29 only. Not published for 2013–2020; not in the source from 2026-04-30."
     },
     "secondary_fuel": {
       "type": ["string", "null"],

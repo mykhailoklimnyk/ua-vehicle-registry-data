@@ -43,5 +43,5 @@ revision 508698 is not downloadable as a separate file; the snapshot files thems
   see the schema) and is unique within the dataset.
 * Each period comes from exactly one revision, so the same registration event cannot appear twice
   with different spellings from different revisions.
-* Registration plates are not published for 2013–2020. From 2026-05 the source no longer
+* Registration plates are not published for 2013–2020. From 2026-04-30 the source no longer
   contains them.

@@ -231,16 +231,16 @@ All seven issues were reported by Qyperion.
 | #1 | The last day of every month was dropped from the monthly files (month end was computed as an exclusive `MonthEnd`). | A month is `[first day, first day of next month)`. |
 | #2 | More rows than in the source: the old build mixed rows of older MIA revisions and repeated the same event with different spellings. | One revision per period; exact duplicates collapsed. `v2025.full` has 2,198,119 rows = unique source events. |
 | #3 | `ЕЛЕКТРО АБО ДИЗЕЛЬНЕ ПАЛИВО` was mapped to a petrol hybrid. | Fuel `Дизель`, secondary fuel `Електро`. |
-| #4 | `POWER_KWT` with a decimal comma (e.g. `154,6`) was lost. | Parsed; `power_kwt` is a float with decimals. Present in the source from 2026-05; carried to other records of the same valid VIN from the source. |
+| #4 | `POWER_KWT` with a decimal comma (e.g. `154,6`) was lost. | Parsed; `power_kwt` is a float with decimals. Present in the source from 2026-04-30; carried to other records of the same valid VIN from the source. |
 | #5 | The same brand or model was spelled in several ways. | A single Latin spelling per brand. A model follows the reference catalogue (make → model → generation): a generation is published under its model (`Golf Plus` → `Golf`), and where the model depends on the year of manufacture the year decides (`Megane Scenic` 1996–1998 → `Megane`). |
 | #6 | Values differed from the source. | `own_weight`, `total_weight`, `capacity` as in the source (no "corrections"); `make_year` as in the source, NULL when later than the registration year + 1, four 2013 typos corrected; `payload` is NULL when `total_weight < own_weight`; `is_valid_vin` is true only for valid 17-character VINs; a VIN keeps non-lookalike Cyrillic letters instead of deleting them; an empty plate gives `is_valid_plate` NULL. |
 | #7 | 2019 had about 204,000 rows that are not in the current MIA file (an older revision). | Removed. Colour `ПОМАРАНЧЕВИЙ (ОРАНЖЕВИЙ)` unified to `Оранжевий`; Latin `I` inside Cyrillic words of `oper_name` replaced by Cyrillic `І`; body types mapped consistently. |
 
 ## Publication Rules
 
-* Registration plates (`n_reg_new`, `n_reg_latin`, `is_valid_plate`) are published only for 2021-01…2026-04: not for 2013–2020 (by decision), and absent in the source from 2026-05.
-* `vin`, `raw_vin`, `is_valid_vin` only from 2021 — the source has no VIN before.
-* `reg_addr_koatuu` is absent in the source from 2026-05.
+* Registration plates (`n_reg_new`, `n_reg_latin`, `is_valid_plate`) are published only for 2021-01-01…2026-04-29: not for 2013–2020 (by decision), and absent in the source from 2026-04-30.
+* `vin`, `raw_vin`, `is_valid_vin` are not published for 2013–2020.
+* `reg_addr_koatuu` is absent in the source from 2026-04-30.
 * Columns that are entirely empty in a period are dropped from that period's file.
 
 ## Known Data Quality Issues in Source (Summary)

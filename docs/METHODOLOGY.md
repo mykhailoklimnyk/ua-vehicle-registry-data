@@ -27,7 +27,7 @@ one** source file, and the periods do not overlap (see SOURCES.md).
 
 1. **Read.** `;`-separated UTF-8 CSV, every value as text. Columns are matched by name,
    case-insensitively; the three source layouts (19 columns 2013–2020, 20 columns with `VIN`
-   2021 – 2026-04, 17 columns from 2026-05 with a merged operation column) map to one set.
+   2021 – 2026-04-29, 17 columns from 2026-04-30 with a merged operation column) map to one set.
 2. **Empty values.** Empty strings and the literal text `NULL`/`None` become null. Other values,
    including source placeholders (`НЕВИЗНАЧЕНИЙ`, year `1900`), are kept.
 3. **Dates.** `d_reg` is parsed from `YYYY-MM-DD`, `DD.MM.YYYY` or `DD.MM.YY` into `DATE`.
